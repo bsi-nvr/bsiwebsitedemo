@@ -72,10 +72,11 @@ export default function NotFound() {
       const mouseXPercent = (e.clientX / windowWidth) * 100
       const targetX = Math.max(10, Math.min(90, mouseXPercent))
       setLucaX(prev => {
-        if (Math.abs(targetX - prev) > 1) {
-          setLucaDirection(targetX > prev ? 1 : -1)
+        const diff = targetX - prev
+        if (Math.abs(diff) > 0.5) {
+          setLucaDirection(diff > 0 ? 1 : -1)
         }
-        return targetX
+        return prev + diff * 0.08
       })
     }
     window.addEventListener('mousemove', handleMouseMove)
@@ -135,7 +136,7 @@ export default function NotFound() {
         const walkInterval = setInterval(() => {
           setVisitor(prev => {
             if (!prev) return null
-            const newX = prev.x + (prev.direction * 0.5)
+            const newX = prev.x + (prev.direction * 0.3)
             if ((prev.direction === 1 && newX > 110) || (prev.direction === -1 && newX < -10)) {
               clearInterval(walkInterval)
               scheduleVisitor()
@@ -143,7 +144,7 @@ export default function NotFound() {
             }
             return { ...prev, x: newX }
           })
-        }, 50)
+        }, 80)
       }, randomTime)
     }
     
@@ -180,9 +181,9 @@ export default function NotFound() {
           return trayX
         }
         setLucaDirection(diff > 0 ? 1 : -1)
-        return prev + (diff > 0 ? 2 : -2)
+        return prev + (diff > 0 ? 0.7 : -0.7)
       })
-    }, 50)
+    }, 80)
   }, [lucaActivity, locale])
   
   const showWoolBall = useCallback(() => {
@@ -217,13 +218,13 @@ export default function NotFound() {
                 setCurrentMessage(locale === 'nl' ? 'Dat was leuk!' : 'That was fun!')
                 setTimeout(() => setShowMessage(false), 4000)
               }
-            }, 800)
+            }, 1000)
             return prev
           }
           setLucaDirection(diff > 0 ? 1 : -1)
-          return prev + (diff > 0 ? 3 : -3)
+          return prev + (diff > 0 ? 0.9 : -0.9)
         })
-      }, 50)
+      }, 80)
     }
     moveToWool()
   }, [lucaActivity, locale, woolBall])
@@ -257,9 +258,9 @@ export default function NotFound() {
           return prev
         }
         setLucaDirection(diff > 0 ? 1 : -1)
-        return prev + (diff > 0 ? 3 : -3)
+        return prev + (diff > 0 ? 0.9 : -0.9)
       })
-    }, 50)
+    }, 80)
   }, [lucaActivity, locale])
   
   const chaseLaser = useCallback(() => {
@@ -296,9 +297,9 @@ export default function NotFound() {
             return prev
           }
           setLucaDirection(diff > 0 ? 1 : -1)
-          return prev + (diff > 0 ? 2 : -2)
+          return prev + (diff > 0 ? 0.8 : -0.8)
         })
-      }, 50)
+      }, 80)
     }
     moveLaser()
   }, [lucaActivity, locale])
@@ -313,7 +314,7 @@ export default function NotFound() {
     setTimeout(() => {
       setLucaActivity('idle')
       setTimeout(() => setShowMessage(false), 4500)
-    }, 500)
+    }, 800)
   }, [lucaActivity, locale])
   
   const handleVisitorClick = useCallback((type: 'lilly' | 'zuko' | 'misty') => {
@@ -454,11 +455,12 @@ export default function NotFound() {
           
           <div className="mt-10">
             <p className="text-muted-foreground mb-8 text-balance font-inter">{t.cta}</p>
-            <Link href="/">
-              <Button className="gap-2 rounded-full px-5 py-2.5 text-sm font-medium bg-foreground text-background hover:bg-foreground/90 transition-colors font-inter">
-                <Home className="w-5 h-5" />
-                {t.homeButton}
-              </Button>
+            <Link
+              href="/"
+              className="group inline-flex items-center gap-3 px-8 py-4 border border-foreground text-sm uppercase tracking-[0.2em] hover:bg-foreground hover:text-background transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 font-inter"
+            >
+              <Home className="w-4 h-4" />
+              {t.homeButton}
             </Link>
           </div>
         </div>
@@ -472,7 +474,7 @@ export default function NotFound() {
           style={{ 
             left: `${lucaX}%`, 
             transform: 'translateX(-50%)',
-            animation: lucaActivity === 'jumping' ? 'jump 0.6s ease-in-out' : 'none',
+            animation: lucaActivity === 'jumping' ? 'jump 0.8s ease-in-out' : 'none',
             position: 'absolute',
             bottom: '32px'
           }}
@@ -483,7 +485,7 @@ export default function NotFound() {
         {/* Visiting friend */}
           {visitor && (
             <div
-              className="absolute bottom-8 transition-all duration-100 ease-linear"
+              className="absolute bottom-8 transition-all duration-300 ease-linear"
               style={{ left: `${visitor.x}%`, transform: 'translateX(-50%)' }}
             >
               {visitor.type === 'lilly' && <CatDiv color="orange" direction={visitor.direction} isWalking={true} name="Lilly" onClick={() => handleVisitorClick('lilly')} showName={false} />}
@@ -510,7 +512,7 @@ export default function NotFound() {
               left: `${woolBall.x}%`, 
               transform: 'translateX(-50%)',
               background: 'radial-gradient(circle at 30% 30%, #f87171, #ef4444)',
-              animation: 'woolBounce 0.8s infinite alternate'
+              animation: 'woolBounce 1.4s infinite alternate'
             }}
           />
         )}
@@ -611,10 +613,10 @@ function CatDiv({ color, direction, isWalking, name, onClick, showName = true }:
         {/* Eyes */}
         <div className="flex justify-center gap-4 absolute w-full top-2 z-10">
           <div className="bg-yellow-400 w-2.5 h-4 rounded-full flex items-center justify-center">
-            <div className="bg-black w-1 h-2.5 rounded-full" style={{ animation: 'blink 4s infinite' }} />
+        <div className="bg-black w-1 h-2.5 rounded-full" style={{ animation: 'blink 6s infinite' }} />
           </div>
           <div className="bg-yellow-400 w-2.5 h-4 rounded-full flex items-center justify-center">
-            <div className="bg-black w-1 h-2.5 rounded-full" style={{ animation: 'blink 4s infinite' }} />
+        <div className="bg-black w-1 h-2.5 rounded-full" style={{ animation: 'blink 6s infinite' }} />
           </div>
         </div>
         
@@ -652,7 +654,7 @@ function CatDiv({ color, direction, isWalking, name, onClick, showName = true }:
       {/* Tail */}
       <div 
         className={`${colors.body} w-3 h-12 absolute -right-3 top-8 rounded-full`}
-        style={{ transformOrigin: 'bottom center', animation: 'tailWag 2s infinite' }}
+        style={{ transformOrigin: 'bottom center', animation: 'tailWag 2.6s infinite' }}
       />
       
       {/* Legs */}
@@ -661,7 +663,7 @@ function CatDiv({ color, direction, isWalking, name, onClick, showName = true }:
           <div 
             key={i}
             className={`${isLuca && (i === 1 || i === 2) ? 'bg-white' : colors.dark} w-3 rounded-b-lg`}
-            style={{ height: '20px', animation: isWalking ? `legMove 0.4s infinite ${delay}s` : 'none' }}
+            style={{ height: '20px', animation: isWalking ? `legMove 0.6s infinite ${delay}s` : 'none' }}
           />
         ))}
       </div>
@@ -707,7 +709,7 @@ function DogDiv({ direction, isWalking, name, onClick, showName = true }: {
           <div className="bg-gray-900 w-3 h-2 rounded-full absolute left-1/2 -translate-x-1/2 top-0.5" />
         </div>
         
-        <div className="bg-pink-400 w-2 h-3 rounded-b-full absolute left-1/2 -translate-x-1/2 top-9" style={{ animation: 'tongueWag 1s infinite' }} />
+        <div className="bg-pink-400 w-2 h-3 rounded-b-full absolute left-1/2 -translate-x-1/2 top-9" style={{ animation: 'tongueWag 1.4s infinite' }} />
       </div>
       
       <div className="bg-orange-100 w-20 h-14 rounded-2xl absolute left-4 top-7">
@@ -717,7 +719,7 @@ function DogDiv({ direction, isWalking, name, onClick, showName = true }: {
       
       <div 
         className="bg-orange-200 w-4 h-10 absolute right-0 top-7 rounded-full"
-        style={{ transformOrigin: 'bottom center', animation: 'tailWagFast 0.5s infinite' }}
+        style={{ transformOrigin: 'bottom center', animation: 'tailWagFast 0.9s infinite' }}
       />
       
       <div className="absolute bottom-0 w-full flex justify-between px-4">
@@ -725,7 +727,7 @@ function DogDiv({ direction, isWalking, name, onClick, showName = true }: {
           <div 
             key={i}
             className="bg-orange-100 w-3 rounded-b-lg"
-            style={{ height: '18px', animation: isWalking ? `legMove 0.35s infinite ${delay}s` : 'none' }}
+            style={{ height: '18px', animation: isWalking ? `legMove 0.6s infinite ${delay}s` : 'none' }}
           />
         ))}
       </div>
