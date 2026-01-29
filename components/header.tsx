@@ -4,7 +4,9 @@ import { useEffect, useState, useCallback } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Menu, X, Moon, Sun, Languages, ChevronDown } from "lucide-react"
+import { Menu, X, Languages, ChevronDown } from "lucide-react"
+import "@theme-toggles/react/css/Expand.css"
+import { Expand } from "@theme-toggles/react"
 import { useTheme } from "@/lib/theme-context"
 import { useLanguage } from "@/lib/language-context"
 import { cn } from "@/lib/utils"
@@ -65,9 +67,8 @@ export function Header() {
 
   const isDark = resolvedTheme === "dark"
 
-  const toggleTheme = () => {
-    const newTheme = isDark ? "light" : "dark"
-    setTheme(newTheme)
+  const handleThemeToggle = (toggled: boolean) => {
+    setTheme(toggled ? "dark" : "light")
   }
 
   const toggleLocale = () => {
@@ -174,17 +175,13 @@ export function Header() {
               </button>
               
               {mounted && (
-                <button
-                  onClick={toggleTheme}
+                <Expand
+                  duration={750}
+                  toggled={isDark}
+                  onToggle={handleThemeToggle}
                   className="text-muted-foreground hover:text-foreground rounded-full p-2.5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                   aria-label={isDark ? (locale === "en" ? "Switch to light mode" : "Schakel naar lichte modus") : (locale === "en" ? "Switch to dark mode" : "Schakel naar donkere modus")}
-                >
-                  {isDark ? (
-                    <Sun className="w-4 h-4 transition-transform duration-300 rotate-0 scale-100" aria-hidden="true" />
-                  ) : (
-                    <Moon className="w-4 h-4 transition-transform duration-300 -rotate-12 scale-100" aria-hidden="true" />
-                  )}
-                </button>
+                />
               )}
 
               <a
@@ -219,21 +216,17 @@ export function Header() {
               </button>
               
               {mounted && (
-                <button
-                  onClick={toggleTheme}
+                <Expand
+                  duration={750}
+                  toggled={isDark}
+                  onToggle={handleThemeToggle}
                   className={cn(
                     "text-muted-foreground hover:text-foreground transition-colors rounded-full",
                     "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
                     scrolled ? "p-1" : "p-1.5"
                   )}
                   aria-label={isDark ? (locale === "en" ? "Switch to light mode" : "Schakel naar lichte modus") : (locale === "en" ? "Switch to dark mode" : "Schakel naar donkere modus")}
-                >
-                  {isDark ? (
-                    <Sun className={`${scrolled ? "w-4 h-4" : "w-4.5 h-4.5"} transition-transform duration-300 rotate-0 scale-100`} aria-hidden="true" />
-                  ) : (
-                    <Moon className={`${scrolled ? "w-4 h-4" : "w-4.5 h-4.5"} transition-transform duration-300 -rotate-12 scale-100`} aria-hidden="true" />
-                  )}
-                </button>
+                />
               )}
 
               <button
