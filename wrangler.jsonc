@@ -2,7 +2,6 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"main": ".open-next/worker.js",
 	"name": "brainsoft-ict",
-	"project_name": "brainsoft-ict-pages",
 	"pages_build_output_dir": ".next",
 	// OpenNext requires at least 2024-09-23; pin to the known-compatible date below to avoid
 	// accidentally enabling untested platform behavior. You may bump this date intentionally
@@ -11,7 +10,7 @@
 	"compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
 	"assets": {
 		"directory": ".open-next/assets",
-		"binding": "ASSETS"
+		"binding": "PAGES_ASSETS"
 	},
 	"services": [
 		{
