@@ -1,0 +1,25 @@
+name: Deploy Next.js to CloudPanel
+
+on:
+  push:
+    branches: [ main ] # Of 'master', afhankelijk van je branch naam
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ~/htdocs/test.brainsoftict.nl
+            git pull origin main
+            npm install
+            npm run build
+            pm2 restart nextjs-app
