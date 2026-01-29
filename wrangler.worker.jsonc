@@ -1,7 +1,7 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"main": ".open-next/worker.js",
-	"name": "brainsoft-ict",
+	"name": "bsiwebsitedemo",
 	// OpenNext requires at least 2024-09-23; pin to the known-compatible date below to avoid
 	// accidentally enabling untested platform behavior. You may bump this date intentionally
 	// (e.g. to the current date) once you have validated OpenNext with the newer runtime.
@@ -16,7 +16,7 @@
 			// Self-reference service binding, the service name must match the worker name
 			// see https://opennext.js.org/cloudflare/caching
 			"binding": "WORKER_SELF_REFERENCE",
-			"service": "brainsoft-ict"
+			"service": "bsiwebsitedemo"
 		}
 	],
 	"r2_buckets": [
