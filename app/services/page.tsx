@@ -119,10 +119,11 @@ export default function ServicesPage() {
       <section className="relative min-h-[70vh] flex items-end overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/services-hero.jpg"
+            src="/images/services-hero.webp"
             alt=""
             fill
             className="object-cover fade-in-up"
+            sizes="100vw"
             priority
           />
           <div className="absolute inset-0 bg-black/60" />
@@ -160,10 +161,11 @@ export default function ServicesPage() {
               </div>
               <div className="relative aspect-square lg:aspect-auto">
                 <Image
-                  src="/images/services-it-solutions.jpg"
+                  src="/images/services-it-solutions.webp"
                   alt="IT solutions for growing businesses"
                   fill
                   className="object-cover"
+                  sizes="(min-width: 1024px) 50vw, 100vw"
                   placeholder="blur"
                   blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAA8AFADASIAAhEBAxEB/8QAGQABAQADAQAAAAAAAAAAAAAAAAECAwQF/8QAHBAAAwEBAAMBAAAAAAAAAAAAAAECAxEhEiIx/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwD0gA8j0igAlqoCWgJaAloAPY9IoAJaoCWqAJaoCWgJaoCWgA9j0igAloAP/9k="
                   loading="lazy"

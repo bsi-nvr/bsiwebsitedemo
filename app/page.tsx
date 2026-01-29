@@ -48,10 +48,11 @@ export default function Home() {
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/hero-alkmaar.jpg"
+            src="/images/hero-alkmaar.webp"
             alt=""
             fill
             className="object-cover object-center"
+            sizes="100vw"
             priority
             placeholder="blur"
             blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAA8AFADASIAAhEBAxEB/8QAGQABAQEBAQAAAAAAAAAAAAAAAAQBAgMF/8QAGBAAAwEBAAAAAAAAAAAAAAAAAAECAxH/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AOgA8j0igAlqoCWgJaAloAPY9IoAJaoCWqAJaoCWgJaoCWgA9j0igAloAP/Z"
@@ -152,10 +153,11 @@ export default function Home() {
           {/* Image Side */}
           <div className="relative aspect-square lg:aspect-auto lg:min-h-[80vh]">
             <Image
-              src="/images/about-studio.jpg"
+              src="/images/about-studio.webp"
               alt="Our creative studio workspace"
               fill
               className="object-cover"
+              sizes="(min-width: 1024px) 50vw, 100vw"
               loading="lazy"
             />
           </div>
@@ -206,10 +208,11 @@ export default function Home() {
             {/* Large Featured Item */}
             <div className="md:col-span-8 group relative aspect-[4/3] md:aspect-[16/10] overflow-hidden border border-border animate-on-scroll delay-100">
               <Image
-                src="/images/code-background.jpg"
+                src="/images/code-background.webp"
                 alt="Development and technology visualization"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(min-width: 768px) 66vw, 100vw"
                 placeholder="blur"
                 blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAA8AFADASIAAhEBAxEB/8QAGQABAQADAQAAAAAAAAAAAAAAAAECAwQF/8QAHBAAAwEBAAMBAAAAAAAAAAAAAAECAxEhEiIx/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwD0gA8j0igAlqoCWgJaAloAPY9IoAJaoCWqAJaoCWgJaoCWgA9j0igAloAP/9k="
                 loading="lazy"

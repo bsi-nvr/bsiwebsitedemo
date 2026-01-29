@@ -19,10 +19,11 @@ export function Footer() {
               <div className="flex items-center gap-3 mb-6">
                 <Link href="/" className="inline-block">
                   <Image
-                    src="/brainsoft-logo-white.png"
+                    src="/brainsoft-logo-white.webp"
                     alt="BrainSoft ICT"
                     width={140}
                     height={42}
+                    sizes="140px"
                     className="h-auto w-32"
                   />
                 </Link>

@@ -50,7 +50,7 @@ Best practices voor cloud-beveiliging:
 - Train uw team in best practices voor cloud-beveiliging
 
 Door op de hoogte te blijven van deze trends en best practices toe te passen, kan uw organisatie haar cloud-infrastructuur en gegevens beter beschermen tegen opkomende bedreigingen.`,
-    image: "/images/services-it-solutions.jpg",
+    image: "/images/services-it-solutions.webp",
     categoryEn: "Security",
     categoryNl: "Beveiliging"
   },
@@ -105,7 +105,7 @@ Hoe wij uw systemen monitoren:
 - Uitgebreide rapportage en analyse
 
 Met BrainSoft ICT's managed services kunt u ervan verzekerd zijn dat uw systemen door experts worden gemonitord en onderhouden, zodat u zich op uw bedrijfsdoelstellingen kunt concentreren.`,
-    image: "/images/code-background.jpg",
+    image: "/images/code-background.webp",
     categoryEn: "Management",
     categoryNl: "Beheer"
   },
@@ -168,7 +168,7 @@ Veelvoorkomende uitdagingen en oplossingen:
 - Weerstand tegen verandering: Communiceer de voordelen duidelijk en betrek werknemers bij het transformatieproces
 
 Door deze stappen te volgen en te leren van best practices, kunnen MKB's digitale transformatie succesvol navigeren en zich positioneren voor groei in de digitale economie.`,
-    image: "/images/about-studio.jpg",
+    image: "/images/about-studio.webp",
     categoryEn: "Strategy",
     categoryNl: "Strategie"
   },
@@ -239,7 +239,7 @@ Monitoring en onderhoud:
 - Houd statistieken bijgewerkt voor optimale queryplanning
 
 Door deze optimalisatiestrategieën te implementeren, kunt u databaseperformance aanzienlijk verbeteren terwijl u kosten vermindert en de gebruikerservaring verbetert.`,
-    image: "/images/services-hero.jpg",
+    image: "/images/services-hero.webp",
     categoryEn: "Technology",
     categoryNl: "Technologie"
   }

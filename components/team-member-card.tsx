@@ -18,7 +18,7 @@ interface TeamMemberCardProps {
 export function TeamMemberCard({ member, index }: TeamMemberCardProps) {
   return (
     <div 
-      className="group border border-border overflow-hidden hover:border-foreground/30 transition-colors animate-on-scroll"
+      className="group bg-card border border-border/60 rounded-2xl overflow-hidden hover:border-foreground/30 shadow-sm hover:shadow-md transition-[border-color,box-shadow] animate-on-scroll"
       style={{ transitionDelay: `${(index + 1) * 100}ms` }}
     >
       {/* Photo Placeholder */}

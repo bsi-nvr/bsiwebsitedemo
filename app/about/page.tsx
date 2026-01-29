@@ -91,10 +91,11 @@ export default function AboutPage() {
       <section className="relative min-h-[60vh] flex items-end overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/about-studio.jpg"
+            src="/images/about-studio.webp"
             alt=""
             fill
             className="object-cover fade-in-up"
+            sizes="100vw"
             priority
           />
           <div className="absolute inset-0 bg-black/40" />

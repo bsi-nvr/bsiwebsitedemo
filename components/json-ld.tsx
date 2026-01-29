@@ -5,7 +5,7 @@ export function OrganizationJsonLd() {
     "name": "BrainSoft ICT",
     "alternateName": "Brainsoft ICT",
     "url": "https://brainsoftict.nl",
-    "logo": "https://brainsoftict.nl/brainsoft-icon.png",
+    "logo": "https://brainsoftict.nl/brainsoft-icon.webp",
     "description": "Professional managed IT services, cloud solutions, and cybersecurity for businesses in Alkmaar and the Netherlands.",
     "address": {
       "@type": "PostalAddress",
@@ -43,7 +43,7 @@ export function LocalBusinessJsonLd() {
     "@type": "LocalBusiness",
     "@id": "https://brainsoftict.nl/#localbusiness",
     "name": "BrainSoft ICT",
-    "image": "https://brainsoftict.nl/brainsoft-icon.png",
+    "image": "https://brainsoftict.nl/brainsoft-icon.webp",
     "url": "https://brainsoftict.nl",
     "telephone": "+31-72-888-3434",
     "email": "info@brainsoftict.nl",
@@ -136,7 +136,7 @@ export function BlogPostJsonLd({
       "name": "BrainSoft ICT",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://brainsoftict.nl/brainsoft-icon.png"
+        "url": "https://brainsoftict.nl/brainsoft-icon.webp"
       }
     },
     "mainEntityOfPage": {

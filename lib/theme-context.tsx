@@ -62,19 +62,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const resolved = newTheme === "system" ? getSystemTheme() : newTheme
     setResolvedTheme(resolved)
     
-    // Disable transitions during theme change to prevent staggered animations
-    document.documentElement.classList.add("theme-transitioning")
-    
     // Apply class to html element
     document.documentElement.classList.remove("light", "dark")
     document.documentElement.classList.add(resolved)
-    
-    // Re-enable transitions after a brief delay
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        document.documentElement.classList.remove("theme-transitioning")
-      })
-    })
   }
 
   // Prevent flash by not rendering until mounted

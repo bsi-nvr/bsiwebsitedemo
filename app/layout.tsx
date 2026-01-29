@@ -1,8 +1,6 @@
 import React from "react"
 import type { Metadata, Viewport } from 'next'
 import { Inter, Playfair_Display } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
-import { SpeedInsights } from '@vercel/speed-insights/next'
 import { ThemeProvider } from '@/lib/theme-context'
 import { LanguageProvider } from '@/lib/language-context'
 import { Header } from '@/components/header'
@@ -49,7 +47,7 @@ export const metadata: Metadata = {
     description: 'Professional managed IT services, cloud solutions, and cybersecurity for businesses in Alkmaar and the Netherlands.',
     images: [
       {
-        url: '/brainsoft-logo-black.png',
+        url: '/brainsoft-logo-black.webp',
         width: 1200,
         height: 630,
         alt: 'BrainSoft ICT - Managed IT Services',
@@ -60,7 +58,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'BrainSoft ICT | Managed IT Services',
     description: 'Professional managed IT services for businesses in Alkmaar and the Netherlands.',
-    images: ['/brainsoft-logo-black.png'],
+    images: ['/brainsoft-logo-black.webp'],
   },
   robots: {
     index: true,
@@ -76,15 +74,15 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: '/brainsoft-icon.png',
+        url: '/brainsoft-icon.webp',
         media: '(prefers-color-scheme: light)',
       },
       {
-        url: '/brainsoft-icon-white.png',
+        url: '/brainsoft-icon-white.webp',
         media: '(prefers-color-scheme: dark)',
       },
     ],
-    apple: '/brainsoft-icon.png',
+    apple: '/brainsoft-icon.webp',
   },
 }
 
@@ -135,8 +133,6 @@ export default function RootLayout({
             <HolidayEffects />
           </LanguageProvider>
         </ThemeProvider>
-        <Analytics />
-        <SpeedInsights />
 </body>
     </html>
   )

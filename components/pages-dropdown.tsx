@@ -114,7 +114,7 @@ export function PagesDropdown({
         aria-expanded={isOpen}
         aria-haspopup="true"
         className={cn(
-          "flex items-center gap-1 font-medium rounded-full transition-all",
+          "flex items-center gap-1 font-medium rounded-full transition-colors hover:bg-foreground/5",
           "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
           scrolled 
             ? "px-4 py-2.5 text-sm duration-300 ease-out" 
@@ -130,7 +130,7 @@ export function PagesDropdown({
       
       {isOpen && (
         <div 
-          className="absolute top-full mt-2 left-0 min-w-[200px] bg-background/95 backdrop-blur-md border border-border/40 rounded-2xl shadow-lg overflow-hidden"
+          className="absolute top-full mt-2 left-0 min-w-[200px] bg-background/95 backdrop-blur-md border border-border/40 rounded-2xl shadow-md overflow-hidden"
           role="menu"
         >
           {pagesMenuLinks.map((link, index) => (
