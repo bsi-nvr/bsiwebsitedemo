@@ -28,9 +28,8 @@ export function DesktopActions({
         className={cn(
           "flex items-center gap-1 font-medium text-foreground rounded-full transition-colors hover:bg-foreground/5",
           "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-          scrolled
-            ? "px-3 py-2.5 text-sm duration-300 ease-out"
-            : "px-3.5 py-2.5 text-sm duration-500 ease-out"
+          "transition-[padding] duration-300 ease-out",
+          scrolled ? "px-3 py-2.5 text-sm" : "px-3.5 py-2.5 text-sm"
         )}
         aria-label={locale === "en" ? "Switch to Dutch" : "Switch to English"}
       >
@@ -55,9 +54,8 @@ export function DesktopActions({
         className={cn(
           "font-medium rounded-full bg-foreground text-background hover:bg-foreground/90 transition-all",
           "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-          scrolled
-            ? "px-4 py-2.5 text-sm duration-300 ease-out"
-            : "px-5 py-2.5 text-sm duration-500 ease-out"
+          "transition-[padding] duration-300 ease-out",
+          scrolled ? "px-4 py-2.5 text-sm" : "px-5 py-2.5 text-sm"
         )}
       >
         Helpdesk

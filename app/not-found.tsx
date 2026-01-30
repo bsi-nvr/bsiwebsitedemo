@@ -439,25 +439,25 @@ export default function NotFound() {
       {/* Main content */}
       <div className="flex-grow flex items-center justify-center px-4 py-16 relative">
         <div className="max-w-4xl w-full flex flex-col items-center text-center">
-          <h1 className="text-8xl font-bold text-accent mb-4 font-playfair">😿 404</h1>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 text-balance font-playfair">{t.subtitle}</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-balance font-inter">{t.description}</p>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mt-4 text-balance font-inter">{t.subdescription}</p>
+          <h1 className="text-8xl font-bold text-accent mb-4 font-serif">😿 404</h1>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 text-balance font-sans">{t.subtitle}</h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-balance font-sans">{t.description}</p>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mt-4 text-balance font-sans">{t.subdescription}</p>
           
           {/* Speech bubble in main content */}
           {showMessage && currentMessage && (
             <div className="mt-6 mb-4">
               <div className="bg-muted/95 border border-border rounded-xl px-6 py-4 shadow-xl min-w-[240px] max-w-[560px]">
-                <p className="text-sm text-foreground text-center leading-relaxed whitespace-normal font-inter">{currentMessage}</p>
+                <p className="text-sm text-foreground text-center leading-relaxed whitespace-normal font-sans">{currentMessage}</p>
               </div>
             </div>
           )}
           
           <div className="mt-10">
-            <p className="text-muted-foreground mb-8 text-balance font-inter">{t.cta}</p>
+            <p className="text-muted-foreground mb-8 text-balance font-sans">{t.cta}</p>
             <Link
               href="/"
-              className="group inline-flex items-center gap-3 px-8 py-4 border border-foreground text-sm uppercase tracking-[0.2em] hover:bg-foreground hover:text-background transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 font-inter"
+              className="group inline-flex items-center gap-3 px-8 py-4 border border-foreground text-sm uppercase tracking-[0.2em] hover:bg-foreground hover:text-background transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 font-sans"
             >
               <Home className="w-4 h-4" />
               {t.homeButton}

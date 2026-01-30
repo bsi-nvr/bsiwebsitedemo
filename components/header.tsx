@@ -12,6 +12,8 @@ import { DesktopActions } from "./header/desktop-actions"
 import { MobileActions } from "./header/mobile-actions"
 import { MobileMenu } from "./header/mobile-menu"
 
+const SCROLL_THRESHOLD = 60
+
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [mounted, setMounted] = useState(false)
@@ -23,9 +25,10 @@ export function Header() {
   useEffect(() => {
     setMounted(true)
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
+      setScrolled(window.scrollY > SCROLL_THRESHOLD)
     }
-    window.addEventListener("scroll", handleScroll)
+    handleScroll()
+    window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
@@ -89,10 +92,10 @@ export function Header() {
               "pointer-events-auto flex items-center bg-background/80 backdrop-blur-xl border border-border/40 shadow-sm rounded-full",
               "w-full justify-between mx-0 mt-4 px-4 py-3",
               "lg:w-auto lg:inline-flex lg:justify-start lg:gap-1 lg:mx-0",
-              "transition-[transform,margin,padding]",
+              "transition-[margin,padding,transform] duration-300 ease-out",
               scrolled
-                ? "lg:mt-3 lg:px-3 lg:py-2.5 lg:scale-[0.98] duration-300 ease-out"
-                : "lg:mt-6 lg:px-4 lg:py-3 lg:scale-100 duration-500 ease-out"
+                ? "lg:mt-3 lg:px-3 lg:py-2.5 lg:scale-[0.98]"
+                : "lg:mt-6 lg:px-4 lg:py-3 lg:scale-100"
             )}
           >
             <Link
@@ -107,10 +110,8 @@ export function Header() {
                 height={48}
                 sizes="(min-width: 1024px) 48px, 40px"
                 className={cn(
-                  "object-contain transition-all",
-                  scrolled
-                    ? "w-10 h-10 duration-300 ease-out"
-                    : "w-12 h-12 duration-500 ease-out"
+                  "object-contain w-10 h-10 transition-[width,height] duration-300 ease-out",
+                  scrolled ? "lg:w-10 lg:h-10" : "lg:w-12 lg:h-12"
                 )}
                 priority
               />

@@ -116,9 +116,8 @@ export function PagesDropdown({
         className={cn(
           "flex items-center gap-1 font-medium rounded-full transition-colors hover:bg-foreground/5",
           "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-          scrolled 
-            ? "px-4 py-2.5 text-sm duration-300 ease-out" 
-            : "px-5 py-2.5 text-sm duration-500 ease-out",
+          "transition-[padding] duration-300 ease-out",
+          scrolled ? "px-4 py-2.5 text-sm" : "px-5 py-2.5 text-sm",
           isOpen
             ? "bg-foreground text-background"
             : "text-muted-foreground hover:text-foreground"

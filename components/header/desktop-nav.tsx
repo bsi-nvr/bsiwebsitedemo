@@ -26,9 +26,8 @@ export function DesktopNav({ navLinks, pathname, scrolled }: DesktopNavProps) {
           className={cn(
             "font-medium rounded-full transition-colors",
             "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-            scrolled
-              ? "px-4 py-2.5 text-sm duration-300 ease-out"
-              : "px-5 py-2.5 text-sm duration-500 ease-out",
+            "transition-[padding] duration-300 ease-out",
+            scrolled ? "px-4 py-2.5 text-sm" : "px-5 py-2.5 text-sm",
             pathname === link.href
               ? "bg-foreground text-background"
               : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
