@@ -227,6 +227,60 @@ function NotFoundContent({ locale }: { locale: string }) {
         }
       }
 
+      // MODE: LASER (Autonomous V24.5)
+      else if (mode === 'LASER') {
+        // 1. Move Laser Dot Randomly
+        // We reuse targetRef for the "Next Laser Destination" to save memory/refs
+        const dest = targetRef.current
+        const laser = laserRef.current
+
+        // Check distance to destination
+        const distToDest = Math.hypot(dest.x - laser.x, dest.y - laser.y)
+
+        // Pick new destination if close or randomly
+        if (distToDest < 20 || Math.random() < 0.02) {
+          dest.x = (Math.random() - 0.5) * 600 // -300 to 300
+          dest.y = -Math.random() * 200 // 0 to -200 (Floor is 0)
+        }
+
+        // Move Laser smoothly
+        laser.x += (dest.x - laser.x) * 0.15
+        laser.y += (dest.y - laser.y) * 0.15
+
+        // 2. Luca tracks laser
+        const dx = laser.x - luca.x
+        const dy = laser.y - luca.y
+
+        // Luca Speed
+        if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+          luca.x += dx * 0.09
+          luca.y += dy * 0.09
+          luca.isWalking = true
+          luca.scaleX = dx > 0 ? 1 : -1
+          luca.emotion = 'happy'
+        } else {
+          luca.isWalking = false
+          luca.emotion = 'neutral'
+          // If caught, maybe pause laser? Nah, keep it erratic.
+        }
+
+        // 3. Visitor tracks too
+        if (visitor) {
+          const vdx = laser.x - vis.x
+          const vdy = laser.y - vis.y
+          if (Math.abs(vdx) > 5 || Math.abs(vdy) > 5) {
+            vis.x += vdx * 0.08
+            vis.y += vdy * 0.08
+            vis.isWalking = true
+            vis.scaleX = vdx > 0 ? 1 : -1
+            vis.emotion = 'happy'
+          } else {
+            vis.isWalking = false
+            vis.emotion = 'neutral'
+          }
+        }
+      }
+
       // MODE: FETCH (Misty - V21 GIFT REWRITE)
       else if (mode === 'FETCH') {
         // 3 Phases: 
@@ -367,7 +421,13 @@ function NotFoundContent({ locale }: { locale: string }) {
     }, 30) // 30 FPS
 
     return () => clearInterval(loopInterval)
-  }, [mode, visitor, locale, speech]) // V21.3: Added speech dependency to avoid stale closure
+  }, [mode, visitor, locale, speech])
+
+  // V24.5: AUTONOMOUS LASER (No Mouse Tracking)
+  // Logic is now entirely inside the Game Loop to keep it synced.
+  // We use laserRef.current to store position (x, y) and active state.
+  // We'll use extra properties on laserRef if needed, or just random walk.
+
   // --- INTERACTION HANDLERS ---
   const handleLaser = () => {
     if (mode !== 'IDLE' && mode !== 'LASER') return
