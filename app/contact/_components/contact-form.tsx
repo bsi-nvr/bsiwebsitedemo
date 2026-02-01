@@ -13,6 +13,8 @@ interface FormValidation {
   lastName: boolean | null
   email: boolean | null
   message: boolean | null
+  organization: boolean | null
+  role: boolean | null
 }
 
 interface ContactFormProps {
@@ -41,12 +43,16 @@ export function ContactForm({ locale, t }: ContactFormProps) {
     lastName: null,
     email: null,
     message: null,
+    organization: null,
+    role: null,
   })
   const [touched, setTouched] = useState({
     firstName: false,
     lastName: false,
     email: false,
     message: false,
+    organization: false,
+    role: false,
   })
 
   useEffect(() => {
@@ -55,6 +61,10 @@ export function ContactForm({ locale, t }: ContactFormProps) {
       lastName: touched.lastName ? formData.lastName.trim().length > 0 : null,
       email: touched.email ? validateEmail(formData.email) : null,
       message: touched.message ? formData.message.trim().length > 10 : null,
+      // Optional fields: Green if filled (>0), else null/neutral (unless user wants separate 'touched but empty' state?)
+      // Let's make them: If touched and not empty -> Green. If touched and empty -> Neutral (since optional).
+      organization: touched.organization && formData.organization.trim().length > 0 ? true : null,
+      role: touched.role && formData.role.trim().length > 0 ? true : null,
     })
   }, [formData, touched])
 
@@ -181,11 +191,19 @@ export function ContactForm({ locale, t }: ContactFormProps) {
                     name="firstName"
                     placeholder="Elliot"
                     onFocus={(e) => e.target.placeholder = ""}
-                    onBlur={(e) => e.target.placeholder = "Elliot"}
+                    onBlur={(e) => {
+                      handleInputBlur(e)
+                      e.target.placeholder = "Elliot"
+                    }}
                     value={formData.firstName}
                     onChange={handleInputChange}
                     required
-                    className="border-0 border-b border-border rounded-none bg-transparent px-0 focus-visible:ring-0 focus-visible:border-foreground pr-8 placeholder:text-muted-foreground"
+                    className={`border-0 border-b rounded-none bg-transparent px-0 focus-visible:ring-0 pr-8 placeholder:text-muted-foreground ${validation.firstName === true
+                      ? "border-green-500 focus-visible:border-green-500"
+                      : validation.firstName === false
+                        ? "border-red-500 focus-visible:border-red-500"
+                        : "border-border focus-visible:border-foreground"
+                      }`}
                   />
                   {touched.firstName && (
                     <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center">
@@ -215,7 +233,12 @@ export function ContactForm({ locale, t }: ContactFormProps) {
                       e.target.placeholder = "Alderson"
                     }}
                     required
-                    className="border-0 border-b border-border rounded-none bg-transparent px-0 focus-visible:ring-0 focus-visible:border-foreground pr-8 placeholder:text-muted-foreground"
+                    className={`border-0 border-b rounded-none bg-transparent px-0 focus-visible:ring-0 pr-8 placeholder:text-muted-foreground ${validation.lastName === true
+                      ? "border-green-500 focus-visible:border-green-500"
+                      : validation.lastName === false
+                        ? "border-red-500 focus-visible:border-red-500"
+                        : "border-border focus-visible:border-foreground"
+                      }`}
                   />
                   {touched.lastName && (
                     <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center">
@@ -277,28 +300,53 @@ export function ContactForm({ locale, t }: ContactFormProps) {
                 <label htmlFor="organization" className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
                   {t.contact.form.organization}
                 </label>
-                <Input
-                  id="organization"
-                  name="organization"
-                  placeholder="Allsafe"
-                  onFocus={(e) => e.target.placeholder = ""}
-                  onBlur={(e) => e.target.placeholder = "Allsafe"}
-                  value={formData.organization}
-                  onChange={handleInputChange}
-                  className="border-0 border-b border-border rounded-none bg-transparent px-0 focus-visible:ring-0 focus-visible:border-foreground"
-                />
+                <div className="relative">
+                  <Input
+                    id="organization"
+                    name="organization"
+                    placeholder="Allsafe"
+                    onFocus={(e) => e.target.placeholder = ""}
+                    onBlur={(e) => {
+                      handleInputBlur(e)
+                      e.target.placeholder = "Allsafe"
+                    }}
+                    value={formData.organization}
+                    onChange={handleInputChange}
+                    className={`border-0 border-b rounded-none bg-transparent px-0 focus-visible:ring-0 pr-8 transition-colors ${validation.organization === true
+                      ? "border-green-500 focus-visible:border-green-500"
+                      : "border-border focus-visible:border-foreground"
+                      }`}
+                  />
+                  {/* Only show Green check if valid. No red X since optional. */}
+                  {validation.organization && (
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center">
+                      <Check className="w-4 h-4 text-green-500" />
+                    </div>
+                  )}
+                </div>
               </div>
               <div className="space-y-2">
                 <label htmlFor="role" className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
                   {t.contact.form.role}
                 </label>
-                <Input
-                  id="role"
-                  name="role"
-                  value={formData.role}
-                  onChange={handleInputChange}
-                  className="border-0 border-b border-border rounded-none bg-transparent px-0 focus-visible:ring-0 focus-visible:border-foreground"
-                />
+                <div className="relative">
+                  <Input
+                    id="role"
+                    name="role"
+                    value={formData.role}
+                    onChange={handleInputChange}
+                    onBlur={handleInputBlur}
+                    className={`border-0 border-b rounded-none bg-transparent px-0 focus-visible:ring-0 pr-8 transition-colors ${validation.role === true
+                      ? "border-green-500 focus-visible:border-green-500"
+                      : "border-border focus-visible:border-foreground"
+                      }`}
+                  />
+                  {validation.role && (
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center">
+                      <Check className="w-4 h-4 text-green-500" />
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 
