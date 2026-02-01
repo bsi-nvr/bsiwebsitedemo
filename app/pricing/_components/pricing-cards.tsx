@@ -19,7 +19,7 @@ export function PricingCards({ content, isYearly, locale }: PricingCardsProps) {
             <div
               key={plan.name}
               className={cn(
-                "relative flex flex-col rounded-2xl border border-border/60 transition-all duration-300 shadow-sm hover:shadow-md",
+                "relative flex flex-col rounded-2xl border border-border/60 transition-all duration-500 shadow-sm hover:shadow-md",
                 plan.popular
                   ? "border-accent bg-accent/5 scale-[1.02] shadow-md hover:shadow-lg"
                   : "bg-card hover:border-accent/50"

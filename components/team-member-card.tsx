@@ -17,12 +17,12 @@ interface TeamMemberCardProps {
 
 export function TeamMemberCard({ member, index }: TeamMemberCardProps) {
   return (
-    <div 
-      className="group bg-card border border-border/60 rounded-2xl overflow-hidden hover:border-foreground/30 shadow-sm hover:shadow-md transition-[border-color,box-shadow] animate-on-scroll"
-      style={{ transitionDelay: `${(index + 1) * 100}ms` }}
+    <div
+      className="group bg-card border border-border/60 rounded-2xl overflow-hidden hover:border-foreground/30 shadow-sm hover:shadow-md transition-[border-color,box-shadow,background-color] duration-500 animate-on-scroll"
+    // Removed stagger delay to fix theme switching synchronization
     >
       {/* Photo Placeholder */}
-      <div className="aspect-[3/4] bg-secondary/30 flex items-end justify-start p-6 overflow-hidden relative">
+      <div className="aspect-[3/4] bg-secondary/30 flex items-end justify-start p-6 overflow-hidden relative transition-colors duration-500">
         <div className="absolute inset-0 bg-gradient-to-t from-foreground/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
         <span className="text-7xl md:text-8xl font-serif font-light text-muted-foreground/20 relative z-10">
           0{index + 1}

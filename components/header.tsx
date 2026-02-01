@@ -89,10 +89,10 @@ export function Header() {
           <nav
             aria-label="Main navigation"
             className={cn(
-              "pointer-events-auto flex items-center bg-background/80 backdrop-blur-xl border border-border/40 shadow-sm rounded-full",
+              "pointer-events-auto flex items-center bg-white/70 dark:bg-black/70 backdrop-blur-md border border-white/20 dark:border-white/10 shadow-sm rounded-full", // Explicit frosted glass
               "w-full justify-between mx-0 mt-4 px-4 py-3",
               "lg:w-auto lg:inline-flex lg:justify-start lg:gap-1 lg:mx-0",
-              "transition-[margin,padding,transform] duration-300 ease-out",
+              "transition-[margin,padding,transform,background-color,border-color] duration-500 ease-out", // Added transition props
               scrolled
                 ? "lg:mt-3 lg:px-3 lg:py-2.5 lg:scale-[0.98]"
                 : "lg:mt-6 lg:px-4 lg:py-3 lg:scale-100"

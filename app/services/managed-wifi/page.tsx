@@ -155,8 +155,8 @@ export default function ManagedWifiPage() {
         </div>
 
         <div className="relative z-10 container mx-auto px-6 lg:px-12 pb-16 md:pb-24 pt-40">
-          <Link 
-            href="/services" 
+          <Link
+            href="/services"
             className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors mb-8 text-sm uppercase tracking-[0.2em]"
           >
             <ArrowLeft className="w-4 h-4" />
@@ -189,13 +189,13 @@ export default function ManagedWifiPage() {
       </section>
 
       {/* Features Grid */}
-      <section className="py-20 md:py-28 border-t border-border bg-secondary/30">
+      <section className="py-20 md:py-28 border-t border-border bg-secondary/30 transition-colors duration-500">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
             {t.features.map((feature, index) => (
-              <div 
+              <div
                 key={feature.title}
-                className={`bg-background p-8 md:p-10 animate-on-scroll delay-${(index + 1) * 100}`}
+                className={`bg-background p-8 md:p-10 animate-on-scroll delay-${(index + 1) * 100} transition-colors duration-500`}
               >
                 <feature.icon className="w-8 h-8 mb-6 text-foreground" />
                 <h3 className="text-xl font-serif font-light mb-4">{feature.title}</h3>
@@ -214,7 +214,7 @@ export default function ManagedWifiPage() {
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             {t.benefits.items.map((item, index) => (
-              <div 
+              <div
                 key={item.label}
                 className={`text-center animate-on-scroll delay-${(index + 1) * 100}`}
               >
@@ -234,7 +234,7 @@ export default function ManagedWifiPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {t.useCases.items.map((useCase, index) => (
-              <div 
+              <div
                 key={useCase.title}
                 className={`p-6 border border-background/20 animate-on-scroll delay-${(index + 1) * 100}`}
               >

@@ -15,17 +15,17 @@ export interface ServiceCardProps {
   variant?: "bento" | "grid"
 }
 
-export function ServiceCard({ 
-  number, 
-  title, 
-  description, 
+export function ServiceCard({
+  number,
+  title,
+  description,
   features,
   href,
   index,
   variant = "bento"
 }: ServiceCardProps) {
   const { locale } = useLanguage()
-  
+
   if (variant === "grid") {
     return (
       <Link
@@ -37,7 +37,7 @@ export function ServiceCard({
           "last:border-r-0",
           index % 2 === 1 && "md:border-r-0"
         )}
-        style={{ transitionDelay: `${(index + 1) * 100}ms` }}
+      // Removed stagger delay style to fix theme switching sync
       >
         <span className="text-xs text-muted-foreground tracking-[0.2em] mb-6">
           {number}
@@ -70,7 +70,7 @@ export function ServiceCard({
         "group relative bg-background p-8 md:p-12 hover:bg-secondary/30 transition-colors duration-500 animate-on-scroll",
         "focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2"
       )}
-      style={{ transitionDelay: `${(index + 1) * 100}ms` }}
+    // Removed stagger delay as requested
     >
       <div className="flex items-start justify-between mb-8">
         <span className="text-xs text-muted-foreground tracking-[0.2em]">
@@ -86,15 +86,15 @@ export function ServiceCard({
           {description}
         </p>
       )}
-      <span 
-        className="text-xs text-accent font-medium uppercase tracking-[0.15em] opacity-0 group-hover:opacity-100 transition-opacity duration-300" 
+      <span
+        className="text-xs text-accent font-medium uppercase tracking-[0.15em] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         aria-hidden="true"
       >
         {locale === "en" ? "Learn more" : "Meer informatie"} →
       </span>
-      <Link 
-        href={href} 
-        className="absolute inset-0 focus:outline-none" 
+      <Link
+        href={href}
+        className="absolute inset-0 focus:outline-none"
         aria-label={locale === "en" ? `Learn more about ${title}` : `Meer informatie over ${title}`}
       >
         <span className="sr-only">{locale === "en" ? `Learn more about ${title}` : `Meer informatie over ${title}`}</span>

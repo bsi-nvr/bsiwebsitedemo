@@ -14,11 +14,11 @@ interface PagesDropdownProps {
   navLinksLength?: number
 }
 
-export function PagesDropdown({ 
-  scrolled = false, 
-  isMobile = false, 
+export function PagesDropdown({
+  scrolled = false,
+  isMobile = false,
   mobileOpen = false,
-  navLinksLength = 0 
+  navLinksLength = 0
 }: PagesDropdownProps) {
   const [isOpen, setIsOpen] = useState(false)
   const { locale } = useLanguage()
@@ -31,6 +31,7 @@ export function PagesDropdown({
     { href: "/security", label: locale === "en" ? "Security" : "Beveiliging" },
     { href: "/privacy-policy", label: locale === "en" ? "Privacy Policy" : "Privacybeleid" },
     { href: "/terms-conditions", label: locale === "en" ? "Terms & Conditions" : "Algemene Voorwaarden" },
+    { href: "/404", label: "404 Page" },
   ]
 
   // Close dropdown when clicking outside
@@ -74,14 +75,14 @@ export function PagesDropdown({
               : "opacity-0 translate-y-4",
             isOpen
               ? "text-background bg-foreground"
-              : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+              : "text-foreground hover:text-foreground hover:bg-secondary/50" // Changed muted to foreground
           )}
           style={{ transitionDelay: mobileOpen ? `${navLinksLength * 50}ms` : "0ms" }}
         >
           {locale === "en" ? "Pages" : "Pagina's"}
           <ChevronDown className={cn("w-4 h-4 transition-transform duration-300", isOpen && "rotate-180")} />
         </button>
-        
+
         {isOpen && (
           <div className="mt-2 space-y-1" role="menu">
             {pagesMenuLinks.map((link) => (
@@ -120,15 +121,15 @@ export function PagesDropdown({
           scrolled ? "px-4 py-2.5 text-sm" : "px-5 py-2.5 text-sm",
           isOpen
             ? "bg-foreground text-background"
-            : "text-muted-foreground hover:text-foreground"
+            : "text-foreground hover:text-foreground" // Changed muted to foreground
         )}
       >
         {locale === "en" ? "Pages" : "Pagina's"}
         <ChevronDown className={cn("w-3 h-3 transition-transform duration-300", isOpen && "rotate-180")} />
       </button>
-      
+
       {isOpen && (
-        <div 
+        <div
           className="absolute top-full mt-2 left-0 min-w-[200px] bg-background/95 backdrop-blur-md border border-border/40 rounded-2xl shadow-md overflow-hidden"
           role="menu"
         >

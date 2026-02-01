@@ -180,9 +180,10 @@ export function ContactForm({ locale, t }: ContactFormProps) {
                     id="firstName"
                     name="firstName"
                     placeholder="Elliot"
+                    onFocus={(e) => e.target.placeholder = ""}
+                    onBlur={(e) => e.target.placeholder = "Elliot"}
                     value={formData.firstName}
                     onChange={handleInputChange}
-                    onBlur={handleInputBlur}
                     required
                     className="border-0 border-b border-border rounded-none bg-transparent px-0 focus-visible:ring-0 focus-visible:border-foreground pr-8 placeholder:text-muted-foreground"
                   />
@@ -206,9 +207,13 @@ export function ContactForm({ locale, t }: ContactFormProps) {
                     id="lastName"
                     name="lastName"
                     placeholder="Alderson"
+                    onFocus={(e) => e.target.placeholder = ""}
                     value={formData.lastName}
                     onChange={handleInputChange}
-                    onBlur={handleInputBlur}
+                    onBlur={(e) => {
+                      handleInputBlur(e)
+                      e.target.placeholder = "Alderson"
+                    }}
                     required
                     className="border-0 border-b border-border rounded-none bg-transparent px-0 focus-visible:ring-0 focus-visible:border-foreground pr-8 placeholder:text-muted-foreground"
                   />
@@ -235,17 +240,20 @@ export function ContactForm({ locale, t }: ContactFormProps) {
                   name="email"
                   type="email"
                   placeholder="elliotalderson@protonmail.ch"
+                  onFocus={(e) => e.target.placeholder = ""}
                   value={formData.email}
                   onChange={handleInputChange}
-                  onBlur={handleInputBlur}
+                  onBlur={(e) => {
+                    handleInputBlur(e)
+                    e.target.placeholder = "elliotalderson@protonmail.ch"
+                  }}
                   required
-                  className={`border-0 border-b rounded-none bg-transparent px-0 focus-visible:ring-0 pr-8 placeholder:text-muted-foreground ${
-                    validation.email === true
-                      ? "border-green-500 focus-visible:border-green-500"
-                      : validation.email === false
+                  className={`border-0 border-b rounded-none bg-transparent px-0 focus-visible:ring-0 pr-8 placeholder:text-muted-foreground ${validation.email === true
+                    ? "border-green-500 focus-visible:border-green-500"
+                    : validation.email === false
                       ? "border-red-500 focus-visible:border-red-500"
                       : "border-border focus-visible:border-foreground"
-                  }`}
+                    }`}
                 />
                 {touched.email && formData.email !== "elliotalderson@protonmail.ch" && (
                   <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center">
@@ -273,6 +281,8 @@ export function ContactForm({ locale, t }: ContactFormProps) {
                   id="organization"
                   name="organization"
                   placeholder="Allsafe"
+                  onFocus={(e) => e.target.placeholder = ""}
+                  onBlur={(e) => e.target.placeholder = "Allsafe"}
                   value={formData.organization}
                   onChange={handleInputChange}
                   className="border-0 border-b border-border rounded-none bg-transparent px-0 focus-visible:ring-0 focus-visible:border-foreground"
@@ -310,13 +320,12 @@ export function ContactForm({ locale, t }: ContactFormProps) {
                       ? "Tell us about your project..."
                       : "Vertel ons over uw project..."
                   }
-                  className={`border-0 border-b rounded-none bg-transparent px-0 focus-visible:ring-0 resize-none pr-8 ${
-                    validation.message === true
-                      ? "border-green-500 focus-visible:border-green-500"
-                      : validation.message === false
+                  className={`border-0 border-b rounded-none bg-transparent px-0 focus-visible:ring-0 resize-none pr-8 ${validation.message === true
+                    ? "border-green-500 focus-visible:border-green-500"
+                    : validation.message === false
                       ? "border-red-500 focus-visible:border-red-500"
                       : "border-border focus-visible:border-foreground"
-                  }`}
+                    }`}
                 />
                 {touched.message && (
                   <div className="absolute right-0 top-5 flex items-center">

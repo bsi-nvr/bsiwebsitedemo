@@ -42,7 +42,7 @@ export default function Home() {
     <>
       {/* Main content landmark for skip link */}
       <div id="main-content" />
-      
+
       {/* Hero Section - Full Screen with Background Image */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background Image */}
@@ -131,7 +131,7 @@ export default function Home() {
           </div>
 
           {/* Bento Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border transition-colors duration-500">
             {services.map((service, index) => (
               <ServiceCard
                 key={service.number}
@@ -230,7 +230,7 @@ export default function Home() {
 
             {/* Side Items */}
             <div className="md:col-span-4 flex flex-col gap-4 md:gap-6">
-              <div className="group relative flex-1 min-h-[200px] border border-border bg-secondary/30 p-6 md:p-8 flex flex-col justify-end hover:bg-secondary/50 transition-colors animate-on-scroll delay-200">
+              <div className="group relative flex-1 min-h-[200px] border border-border bg-secondary/30 p-6 md:p-8 flex flex-col justify-end hover:bg-secondary/50 transition-colors duration-500 animate-on-scroll">
                 <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
                   {locale === "en" ? "Local Support" : "Lokale Ondersteuning"}
                 </span>
@@ -239,7 +239,7 @@ export default function Home() {
                 </h3>
                 <ArrowUpRight className="absolute top-6 right-6 w-5 h-5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
               </div>
-              <div className="group relative flex-1 min-h-[200px] border border-border bg-secondary/30 p-6 md:p-8 flex flex-col justify-end hover:bg-secondary/50 transition-colors animate-on-scroll delay-300">
+              <div className="group relative flex-1 min-h-[200px] border border-border bg-secondary/30 p-6 md:p-8 flex flex-col justify-end hover:bg-secondary/50 transition-colors duration-500 animate-on-scroll">
                 <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
                   {locale === "en" ? "Fixed Monthly Costs" : "Vaste Maandkosten"}
                 </span>

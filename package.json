@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "lint": "eslint .",
     "test": "vitest",
     "start": "next start"
   },
@@ -29,14 +28,7 @@
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@typescript-eslint/eslint-plugin": "^8.54.0",
-    "@typescript-eslint/parser": "^8.54.0",
     "baseline-browser-mapping": "^2.9.19",
-    "eslint": "^9.39.2",
-    "eslint-config-next": "^16.1.6",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.5",
-    "eslint-plugin-react": "^7.37.5",
     "jsdom": "^27.4.0",
     "postcss": "^8.5",
     "prettier": "^3.8.1",
