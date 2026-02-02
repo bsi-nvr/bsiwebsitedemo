@@ -33,7 +33,7 @@ export function Footer() {
                 </div>
               </div>
               <p className="text-sm text-gray-400 leading-relaxed max-w-sm">
-                {locale === "en" 
+                {locale === "en"
                   ? "BrainSoft ICT is an Alkmaar-based IT company founded in 2020. Our mission is to make IT work environments sustainable by providing high-quality ICT solutions."
                   : "BrainSoft ICT is een ICT-bedrijf uit Alkmaar, opgericht in 2020. Onze missie is om ICT-werkomgevingen duurzaam te maken door hoogwaardige ICT-oplossingen te bieden."}
               </p>
@@ -139,19 +139,8 @@ export function Footer() {
         <div className="py-6 border-t border-gray-800">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             {/* Left side - Legal links */}
-            <div className="flex items-center gap-3 text-sm text-gray-500">
-              <Link href="/terms-conditions" className="hover:text-gray-300 transition-colors">
-                {locale === "en" ? "Terms & Conditions" : "Algemene Voorwaarden"}
-              </Link>
-              <span className="text-amber-500">•</span>
-              <Link href="/privacy-policy" className="hover:text-gray-300 transition-colors">
-                {locale === "en" ? "Privacy Policy" : "Privacybeleid"}
-              </Link>
-              <span className="text-amber-500">•</span>
-              <Link href="/security" className="hover:text-gray-300 transition-colors">
-                {locale === "en" ? "Report Vulnerability" : "Meld Kwetsbaarheid"}
-              </Link>
-            </div>
+            {/* Left side spacer (mobile hidden) */}
+            <div className="hidden md:block" />
 
             {/* Right side - Copyright */}
             <div className="flex items-center gap-3 text-sm text-gray-500">

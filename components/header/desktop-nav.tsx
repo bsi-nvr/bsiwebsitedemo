@@ -29,7 +29,7 @@ export function DesktopNav({ navLinks, pathname, scrolled }: DesktopNavProps) {
             "transition-[padding] duration-300 ease-out",
             scrolled ? "px-4 py-2.5 text-sm" : "px-5 py-2.5 text-sm",
             pathname === link.href
-              ? "bg-foreground text-background"
+              ? "text-foreground bg-secondary/80"
               : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
           )}
         >

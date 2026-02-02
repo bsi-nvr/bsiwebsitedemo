@@ -38,7 +38,7 @@ export function MobileMenu({ navLinks, pathname, mobileOpen }: MobileMenuProps) 
                 "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
                 mobileOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4",
                 pathname === link.href
-                  ? "text-background bg-foreground"
+                  ? "text-foreground bg-secondary/80"
                   : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
               )}
               style={{ transitionDelay: mobileOpen ? `${index * 50}ms` : "0ms" }}
