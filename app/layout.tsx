@@ -5,7 +5,7 @@ import { ThemeProvider } from '@/lib/theme-context'
 import { LanguageProvider } from '@/lib/language-context'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
-import { MobileHelpdeskButton } from '@/components/mobile-helpdesk-button'
+
 import { HolidayEffects } from '@/components/holiday-effects'
 import { ScrollToTop } from '@/components/scroll-to-top'
 import { OrganizationJsonLd, LocalBusinessJsonLd, WebsiteJsonLd } from '@/components/json-ld'
@@ -129,11 +129,11 @@ export default function RootLayout({
             <Header />
             <main id="main-content">{children}</main>
             <Footer />
-            <MobileHelpdeskButton />
+
             <HolidayEffects />
           </LanguageProvider>
         </ThemeProvider>
-</body>
+      </body>
     </html>
   )
 }
