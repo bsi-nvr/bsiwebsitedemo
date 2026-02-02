@@ -567,7 +567,7 @@ function NotFoundContent({ locale }: { locale: string }) {
       <div className="absolute inset-0 opacity-20 pointer-events-none"
         style={{ backgroundImage: 'radial-gradient(var(--foreground) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
 
-      <div className="flex-grow flex flex-col items-center justify-center relative z-10 px-4">
+      <div className="flex-grow flex flex-col items-center justify-center relative z-10 px-4 pt-20">
         <h1
           className={`text-9xl font-black text-black dark:text-white mb-4 select-none cursor-pointer transition-transform duration-700 ${blackHoleActive ? 'scale-0 rotate-[720deg]' : 'hover:scale-105 active:scale-95'}`}
           onClick={() => {
@@ -593,7 +593,7 @@ function NotFoundContent({ locale }: { locale: string }) {
         <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 text-center max-w-2xl">{t.subtitle}</h2>
         <p className="text-lg text-muted-foreground max-w-xl text-center mb-6">{t.description}</p>
 
-        <div className="flex gap-4 mb-20">
+        <div className="flex gap-4">
           <Link href="/" className="px-8 py-3 bg-foreground text-background rounded-full font-bold hover:scale-105 transition-transform">
             {t.homeButton}
           </Link>

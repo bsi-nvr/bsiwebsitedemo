@@ -75,7 +75,7 @@ export function PagesDropdown({
               : "opacity-0 translate-y-4",
             isOpen
               ? "text-background bg-foreground"
-              : "text-foreground hover:text-foreground hover:bg-secondary/50" // Changed muted to foreground
+              : "text-muted-foreground hover:text-foreground hover:bg-secondary/50" // Changed muted to foreground
           )}
           style={{ transitionDelay: mobileOpen ? `${navLinksLength * 50}ms` : "0ms" }}
         >
@@ -121,7 +121,7 @@ export function PagesDropdown({
           scrolled ? "px-4 py-2.5 text-sm" : "px-5 py-2.5 text-sm",
           isOpen
             ? "bg-foreground text-background"
-            : "text-foreground hover:text-foreground" // Changed muted to foreground
+            : "text-muted-foreground hover:text-foreground"
         )}
       >
         {locale === "en" ? "Pages" : "Pagina's"}
