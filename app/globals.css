@@ -267,57 +267,56 @@ html {
   }
 
   .fade-in-up {
-    animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-    will-change: transform, opacity;
+    opacity: 1;
+    transform: none;
   }
 
   .fade-in {
-    animation: fadeIn 0.6s ease-out both;
-    will-change: opacity;
+    opacity: 1;
   }
 
   .slide-in-left {
-    animation: slideInLeft 0.8s ease-out both;
-    will-change: transform, opacity;
+    opacity: 1;
+    transform: none;
   }
 
   .slide-in-right {
-    animation: slideInRight 0.8s ease-out both;
-    will-change: transform, opacity;
+    opacity: 1;
+    transform: none;
   }
 
-  /* Scroll animation classes - initially hidden */
+  /* Scroll animation classes - disabled */
   .animate-on-scroll {
-    opacity: 0;
-    transform: translateY(30px);
+    opacity: 1;
+    transform: none;
   }
 
   .animate-on-scroll.animate-visible {
     opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transform: none;
+    transition: none;
   }
 
   .animate-on-scroll-left {
-    opacity: 0;
-    transform: translateX(-30px);
+    opacity: 1;
+    transform: none;
   }
 
   .animate-on-scroll-left.animate-visible {
     opacity: 1;
-    transform: translateX(0);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transform: none;
+    transition: none;
   }
 
   .animate-on-scroll-right {
-    opacity: 0;
-    transform: translateX(30px);
+    opacity: 1;
+    transform: none;
   }
 
   .animate-on-scroll-right.animate-visible {
     opacity: 1;
-    transform: translateX(0);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transform: none;
+    transition: none;
   }
 
   /* Animation delay utilities */

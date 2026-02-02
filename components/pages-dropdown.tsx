@@ -12,13 +12,21 @@ interface PagesDropdownProps {
   isMobile?: boolean
   mobileOpen?: boolean
   navLinksLength?: number
+  onMouseEnter?: () => void
+  onMouseLeave?: () => void
+  showGlow?: boolean
 }
+
+import { motion } from "framer-motion"
 
 export function PagesDropdown({
   scrolled = false,
   isMobile = false,
   mobileOpen = false,
-  navLinksLength = 0
+  navLinksLength = 0,
+  onMouseEnter,
+  onMouseLeave,
+  showGlow = false
 }: PagesDropdownProps) {
   const [isOpen, setIsOpen] = useState(false)
   const { locale } = useLanguage()
@@ -108,24 +116,54 @@ export function PagesDropdown({
   }
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div
+      className="relative"
+      ref={dropdownRef}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       <button
         onClick={() => setIsOpen(!isOpen)}
         onKeyDown={handleKeyDown}
         aria-expanded={isOpen}
         aria-haspopup="true"
         className={cn(
-          "flex items-center gap-1 font-medium rounded-full transition-colors hover:bg-foreground/5",
+          "relative flex items-center gap-1 font-medium rounded-full transition-colors",
           "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
           "transition-[padding] duration-300 ease-out",
           scrolled ? "px-4 py-2.5 text-sm" : "px-5 py-2.5 text-sm",
           isOpen
-            ? "bg-foreground text-background"
-            : "text-muted-foreground hover:text-foreground"
+            ? "text-background" // Removed bg-foreground as glow handles it
+            : showGlow
+              ? "text-foreground"
+              : "text-muted-foreground hover:text-foreground"
         )}
       >
-        {locale === "en" ? "Pages" : "Pagina's"}
-        <ChevronDown className={cn("w-3 h-3 transition-transform duration-300", isOpen && "rotate-180")} />
+        {showGlow && (
+          <motion.div
+            layoutId="nav-glow"
+            className="absolute inset-0 bg-secondary/80 rounded-full"
+            transition={{
+              type: "spring",
+              stiffness: 350,
+              damping: 30
+            }}
+          />
+        )}
+        {/* Separate glow for open state if needed, or rely on nav-glow. 
+            For this implementation, let's assume nav-glow covers hover/active. 
+            However, when OPEN but not hovered, we might want a distinct style or just keep the glow if it's considered active.
+            The original code had `bg-foreground` when open. 
+            If we want to maintain that 'dark' background when open, we should keep it.
+            But `showGlow` gives `bg-secondary/80`.
+        */}
+        <div className={cn("relative z-10 flex items-center gap-1", isOpen && !showGlow && "text-background")}>
+          {locale === "en" ? "Pages" : "Pagina's"}
+          <ChevronDown className={cn("w-3 h-3 transition-transform duration-300", isOpen && "rotate-180")} />
+        </div>
+        {isOpen && !showGlow && (
+          <div className="absolute inset-0 bg-foreground rounded-full -z-0" />
+        )}
       </button>
 
       {isOpen && (

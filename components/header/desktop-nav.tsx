@@ -21,6 +21,9 @@ import { motion } from "framer-motion"
 export function DesktopNav({ navLinks, pathname, scrolled }: DesktopNavProps) {
   const [hoveredPath, setHoveredPath] = useState<string | null>(null)
 
+  const pagesRoutes = ["/pricing", "/blog", "/security", "/privacy-policy", "/terms-conditions", "/404"]
+  const isPagesActive = pathname ? pagesRoutes.some(route => pathname.startsWith(route)) : false
+
   return (
     <div className="hidden lg:flex items-center gap-1">
       {navLinks.map((link) => {
@@ -57,7 +60,12 @@ export function DesktopNav({ navLinks, pathname, scrolled }: DesktopNavProps) {
         )
       })}
 
-      <PagesDropdown scrolled={scrolled} />
+      <PagesDropdown
+        scrolled={scrolled}
+        onMouseEnter={() => setHoveredPath("pages")}
+        onMouseLeave={() => setHoveredPath(null)}
+        showGlow={hoveredPath === "pages" || (isPagesActive && hoveredPath === null)}
+      />
     </div>
   )
 }
