@@ -1,0 +1,18 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/about/page": "app/about/page.js",
+  "/blog/[slug]/page": "app/blog/[slug]/page.js",
+  "/blog/page": "app/blog/page.js",
+  "/contact/page": "app/contact/page.js",
+  "/page": "app/page.js",
+  "/pricing/page": "app/pricing/page.js",
+  "/privacy-policy/page": "app/privacy-policy/page.js",
+  "/security/page": "app/security/page.js",
+  "/services/cloud-beheer/page": "app/services/cloud-beheer/page.js",
+  "/services/databases/page": "app/services/databases/page.js",
+  "/services/development/page": "app/services/development/page.js",
+  "/services/managed-wifi/page": "app/services/managed-wifi/page.js",
+  "/services/page": "app/services/page.js",
+  "/terms-conditions/page": "app/terms-conditions/page.js"
+}

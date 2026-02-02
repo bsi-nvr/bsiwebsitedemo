@@ -13,6 +13,7 @@
     "deploy:worker": "opennextjs-cloudflare build && opennextjs-cloudflare deploy"
   },
   "dependencies": {
+    "@opennextjs/cloudflare": "^1.16.2",
     "@radix-ui/react-slot": "^1.2.4",
     "@studio-freight/react-lenis": "^0.0.47",
     "class-variance-authority": "^0.7.1",

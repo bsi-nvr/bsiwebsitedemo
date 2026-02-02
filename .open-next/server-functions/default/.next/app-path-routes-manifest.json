@@ -1,0 +1,18 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/about/page": "/about",
+  "/blog/[slug]/page": "/blog/[slug]",
+  "/blog/page": "/blog",
+  "/contact/page": "/contact",
+  "/page": "/",
+  "/pricing/page": "/pricing",
+  "/privacy-policy/page": "/privacy-policy",
+  "/security/page": "/security",
+  "/services/cloud-beheer/page": "/services/cloud-beheer",
+  "/services/databases/page": "/services/databases",
+  "/services/development/page": "/services/development",
+  "/services/managed-wifi/page": "/services/managed-wifi",
+  "/services/page": "/services",
+  "/terms-conditions/page": "/terms-conditions"
+}

@@ -1,0 +1,3 @@
+module.exports=[37313,a=>{"use strict";var b=a.i(72131);function c(){(0,b.useEffect)(()=>{let a=new IntersectionObserver(a=>{a.forEach(a=>{a.isIntersecting&&a.target.classList.add("animate-visible")})},{threshold:.1,rootMargin:"0px 0px -50px 0px"});return document.querySelectorAll(".animate-on-scroll, .animate-on-scroll-left, .animate-on-scroll-right").forEach(b=>a.observe(b)),()=>a.disconnect()},[])}a.s(["useScrollAnimation",()=>c])},33441,a=>{"use strict";let b=(0,a.i(70106).default)("Check",[["path",{d:"M20 6 9 17l-5-5",key:"1gmf2c"}]]);a.s(["Check",()=>b],33441)}];
+
+//# sourceMappingURL=_64bd6bf4._.js.map
