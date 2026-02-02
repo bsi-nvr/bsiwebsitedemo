@@ -230,7 +230,7 @@ export default function Home() {
 
             {/* Side Items */}
             <div className="md:col-span-4 flex flex-col gap-4 md:gap-6">
-              <div className="group relative flex-1 min-h-[200px] border border-border bg-secondary/30 p-6 md:p-8 flex flex-col justify-end hover:bg-secondary/50 transition-colors duration-500 animate-on-scroll">
+              <Link href="/contact" className="group relative flex-1 min-h-[200px] border border-border bg-secondary/30 p-6 md:p-8 flex flex-col justify-end hover:bg-secondary/50 transition-colors duration-500 animate-on-scroll">
                 <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
                   {locale === "en" ? "Local Support" : "Lokale Ondersteuning"}
                 </span>
@@ -238,8 +238,8 @@ export default function Home() {
                   {locale === "en" ? "Based in Alkmaar" : "Gevestigd in Alkmaar"}
                 </h3>
                 <ArrowUpRight className="absolute top-6 right-6 w-5 h-5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
-              </div>
-              <div className="group relative flex-1 min-h-[200px] border border-border bg-secondary/30 p-6 md:p-8 flex flex-col justify-end hover:bg-secondary/50 transition-colors duration-500 animate-on-scroll">
+              </Link>
+              <Link href="/pricing" className="group relative flex-1 min-h-[200px] border border-border bg-secondary/30 p-6 md:p-8 flex flex-col justify-end hover:bg-secondary/50 transition-colors duration-500 animate-on-scroll">
                 <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
                   {locale === "en" ? "Fixed Monthly Costs" : "Vaste Maandkosten"}
                 </span>
@@ -247,7 +247,7 @@ export default function Home() {
                   {locale === "en" ? "Predictable IT Budget" : "Voorspelbaar IT Budget"}
                 </h3>
                 <ArrowUpRight className="absolute top-6 right-6 w-5 h-5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
-              </div>
+              </Link>
             </div>
           </div>
         </div>
