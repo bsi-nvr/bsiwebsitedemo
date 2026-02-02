@@ -3,12 +3,17 @@
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
+import { motion, useScroll, useTransform } from "framer-motion"
 import { useLanguage } from "@/lib/language-context"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 import { ServiceCard } from "@/components/service-card"
+import { GlowCard } from "@/components/glow-card"
+
 
 export default function Home() {
   const { t, locale } = useLanguage()
+  const { scrollY } = useScroll()
+  const y = useTransform(scrollY, [0, 1000], [0, 400])
   useScrollAnimation()
 
   const services = [
@@ -46,7 +51,7 @@ export default function Home() {
       {/* Hero Section - Full Screen with Background Image */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background Image */}
-        <div className="absolute inset-0 z-0">
+        <motion.div style={{ y }} className="absolute inset-0 z-0">
           <Image
             src="/images/hero-alkmaar.webp"
             alt=""
@@ -58,34 +63,91 @@ export default function Home() {
             blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAA8AFADASIAAhEBAxEB/8QAGQABAQEBAQAAAAAAAAAAAAAAAAQBAgMF/8QAGBAAAwEBAAAAAAAAAAAAAAAAAAECAxH/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AOgA8j0igAlqoCWgJaAloAPY9IoAJaoCWqAJaoCWgJaoCWgA9j0igAloAP/Z"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
-        </div>
+        </motion.div>
 
         {/* Content */}
         <div className="relative z-10 container mx-auto px-6 lg:px-12 pt-32 pb-20">
           <div className="max-w-5xl">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-light leading-[0.95] tracking-tight text-white drop-shadow-lg">
-              Brainsoft ICT
-              <br />
-              <span className="text-white/80">Talent dat werkt</span>
-            </h1>
-            <p className="mt-8 md:mt-12 text-base md:text-lg lg:text-xl text-white/90 max-w-2xl leading-relaxed drop-shadow-md text-pretty">
-              {t.hero.subtitle}
-            </p>
-            <div className="mt-10 md:mt-14 flex flex-wrap gap-4">
-              <Link
-                href="/contact"
-                className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-black text-sm uppercase tracking-[0.2em] hover:bg-white/90 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            <motion.div
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    staggerChildren: 0.2,
+                    delayChildren: 0.1
+                  }
+                }
+              }}
+              initial="hidden"
+              animate="visible"
+            >
+              <motion.h1
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      duration: 0.8,
+                      ease: [0.2, 0.8, 0.2, 1]
+                    }
+                  }
+                }}
+                className="text-5xl md:text-6xl lg:text-7xl font-serif font-light leading-[0.95] tracking-tight text-white text-shadow-lg"
+                style={{ willChange: "transform, opacity" }}
               >
-                {t.hero.cta}
-                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
-              </Link>
-              <Link
-                href="/services"
-                className="group inline-flex items-center gap-3 px-8 py-4 border border-white/40 text-white text-sm uppercase tracking-[0.2em] hover:border-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                Brainsoft ICT
+                <br />
+                <span className="text-white/80">Talent dat werkt</span>
+              </motion.h1>
+              <motion.p
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      duration: 0.8,
+                      ease: [0.2, 0.8, 0.2, 1]
+                    }
+                  }
+                }}
+                className="mt-8 md:mt-12 text-base md:text-lg lg:text-xl text-white/90 max-w-2xl leading-relaxed text-shadow-md text-pretty"
+                style={{ willChange: "transform, opacity" }}
               >
-                {t.hero.learnMore}
-              </Link>
-            </div>
+                {t.hero.subtitle}
+              </motion.p>
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      duration: 0.8,
+                      ease: [0.2, 0.8, 0.2, 1]
+                    }
+                  }
+                }}
+                className="mt-10 md:mt-14 flex flex-wrap gap-4"
+                style={{ willChange: "transform, opacity" }}
+              >
+                <Link
+                  href="/contact"
+                  className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-black text-sm uppercase tracking-[0.2em] hover:bg-white/90 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                >
+                  {t.hero.cta}
+                  <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
+                </Link>
+                <Link
+                  href="/services"
+                  className="group inline-flex items-center gap-3 px-8 py-4 border border-white/40 text-white text-sm uppercase tracking-[0.2em] hover:border-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                >
+                  {t.hero.learnMore}
+                </Link>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
 
@@ -230,7 +292,11 @@ export default function Home() {
 
             {/* Side Items */}
             <div className="md:col-span-4 flex flex-col gap-4 md:gap-6">
-              <Link href="/contact" className="group relative flex-1 min-h-[200px] border border-border bg-secondary/30 p-6 md:p-8 flex flex-col justify-end hover:bg-secondary/50 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 animate-on-scroll">
+              <GlowCard
+                as={Link}
+                href="/contact"
+                className="group relative flex-1 min-h-[200px] border border-border bg-secondary/30 p-6 md:p-8 flex flex-col justify-end hover:bg-secondary/50 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 animate-on-scroll"
+              >
                 <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
                   {locale === "en" ? "Local Support" : "Lokale Ondersteuning"}
                 </span>
@@ -238,8 +304,12 @@ export default function Home() {
                   {locale === "en" ? "Based in Alkmaar" : "Gevestigd in Alkmaar"}
                 </h3>
                 <ArrowUpRight className="absolute top-6 right-6 w-5 h-5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
-              </Link>
-              <Link href="/pricing" className="group relative flex-1 min-h-[200px] border border-border bg-secondary/30 p-6 md:p-8 flex flex-col justify-end hover:bg-secondary/50 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 animate-on-scroll">
+              </GlowCard>
+              <GlowCard
+                as={Link}
+                href="/pricing"
+                className="group relative flex-1 min-h-[200px] border border-border bg-secondary/30 p-6 md:p-8 flex flex-col justify-end hover:bg-secondary/50 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 animate-on-scroll"
+              >
                 <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
                   {locale === "en" ? "Fixed Monthly Costs" : "Vaste Maandkosten"}
                 </span>
@@ -247,7 +317,7 @@ export default function Home() {
                   {locale === "en" ? "Predictable IT Budget" : "Voorspelbaar IT Budget"}
                 </h3>
                 <ArrowUpRight className="absolute top-6 right-6 w-5 h-5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
-              </Link>
+              </GlowCard>
             </div>
           </div>
         </div>

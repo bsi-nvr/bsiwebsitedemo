@@ -102,6 +102,8 @@ export function ContactForm({ locale, t }: ContactFormProps) {
       lastName: true,
       email: true,
       message: true,
+      organization: true,
+      role: true,
     })
 
     if (!isFormValid) {
@@ -127,6 +129,8 @@ export function ContactForm({ locale, t }: ContactFormProps) {
         lastName: false,
         email: false,
         message: false,
+        organization: false,
+        role: false,
       })
     } catch {
       setFormStatus("error")
@@ -165,6 +169,8 @@ export function ContactForm({ locale, t }: ContactFormProps) {
                   lastName: null,
                   email: null,
                   message: null,
+                  organization: null,
+                  role: null,
                 })
               }}
               className="mt-8 text-sm uppercase tracking-[0.2em] text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
@@ -334,8 +340,13 @@ export function ContactForm({ locale, t }: ContactFormProps) {
                     id="role"
                     name="role"
                     value={formData.role}
+                    placeholder="Cyber Security Engineer"
+                    onFocus={(e) => e.target.placeholder = ""}
+                    onBlur={(e) => {
+                      handleInputBlur(e)
+                      e.target.placeholder = "Cyber Security Engineer"
+                    }}
                     onChange={handleInputChange}
-                    onBlur={handleInputBlur}
                     className={`border-0 border-b rounded-none bg-transparent px-0 focus-visible:ring-0 pr-8 transition-colors ${validation.role === true
                       ? "border-green-500 focus-visible:border-green-500"
                       : "border-border focus-visible:border-foreground"

@@ -7,21 +7,22 @@ import { ArrowUpRight } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 import { TeamMemberCard, type TeamMember } from "@/components/team-member-card"
+import { GlowCard } from "@/components/glow-card"
 
 export default function AboutPage() {
   const { t, locale } = useLanguage()
   useScrollAnimation()
 
   const values = [
-    { 
-      title: locale === "en" 
+    {
+      title: locale === "en"
         ? "We do what we say and we say what we do"
         : "We doen wat we zeggen en zeggen wat we doen",
-      description: locale === "en" 
+      description: locale === "en"
         ? "Honesty and integrity guide everything we do"
         : "Eerlijkheid en integriteit bepalen alles wat we doen"
     },
-    { 
+    {
       title: locale === "en"
         ? "No double layers or strange profit models"
         : "Geen dubbele lagen of rare verdienmodellen",
@@ -29,7 +30,7 @@ export default function AboutPage() {
         ? "Transparent pricing and straightforward solutions"
         : "Transparante prijsstelling en duidelijke oplossingen"
     },
-    { 
+    {
       title: locale === "en"
         ? "Safety for everyone"
         : "Veiligheid voor iedereen",
@@ -37,7 +38,7 @@ export default function AboutPage() {
         ? "Security and peace of mind are fundamental"
         : "Beveiliging en gemoedsrust zijn fundamenteel"
     },
-    { 
+    {
       title: locale === "en"
         ? "Learning at your own pace"
         : "Leren in eigen tempo",
@@ -48,40 +49,40 @@ export default function AboutPage() {
   ]
 
   const team: TeamMember[] = [
-    { 
-      name: "Mark van Staden", 
-      role: "Technisch Directeur", 
-      bio: "Leiding geven aan onze technische strategie en innovatie", 
-      email: "mark@brainsoftict.nl", 
-      phone: "+31 (0)72 888 3434" 
+    {
+      name: "Mark van Staden",
+      role: "Technisch Directeur",
+      bio: "Leiding geven aan onze technische strategie en innovatie",
+      email: "mark@brainsoftict.nl",
+      phone: "+31 (0)72 888 3434"
     },
-    { 
-      name: "Niek van Rijswijk", 
-      role: "Senior System Administrator", 
-      bio: "Beheer en optimalisatie van uw IT-infrastructuur", 
-      email: "niek@brainsoftict.nl", 
-      phone: "+31 (0)72 888 3434" 
+    {
+      name: "Niek van Rijswijk",
+      role: "Senior System Administrator",
+      bio: "Beheer en optimalisatie van uw IT-infrastructuur",
+      email: "niek@brainsoftict.nl",
+      phone: "+31 (0)72 888 3434"
     },
-    { 
-      name: "Sander Tensen", 
-      role: "Bestuurslid", 
-      bio: "Strategische bedrijfsleiding en client relaties", 
-      email: "sander@brainsoftict.nl", 
-      phone: "+31 (0)72 888 3434" 
+    {
+      name: "Sander Tensen",
+      role: "Bestuurslid",
+      bio: "Strategische bedrijfsleiding en client relaties",
+      email: "sander@brainsoftict.nl",
+      phone: "+31 (0)72 888 3434"
     },
-    { 
-      name: "Sabine van Staden", 
-      role: "Bestuurslid", 
-      bio: "Operationeel management en projectcoördinatie", 
-      email: "sabine@brainsoftict.nl", 
-      phone: "+31 (0)72 888 3434" 
+    {
+      name: "Sabine van Staden",
+      role: "Bestuurslid",
+      bio: "Operationeel management en projectcoördinatie",
+      email: "sabine@brainsoftict.nl",
+      phone: "+31 (0)72 888 3434"
     },
-    { 
-      name: "Mike Jansen", 
-      role: "Trainee", 
-      bio: "Aankomend IT-professional in training", 
-      email: "mike@brainsoftict.nl", 
-      phone: "+31 (0)72 888 3434" 
+    {
+      name: "Mike Jansen",
+      role: "Trainee",
+      bio: "Aankomend IT-professional in training",
+      email: "mike@brainsoftict.nl",
+      phone: "+31 (0)72 888 3434"
     },
   ]
 
@@ -155,12 +156,12 @@ export default function AboutPage() {
             {values.map((value, index) => {
               const isTopRow = index < 2
               const isLeftCol = index % 2 === 0
-              
+
               return (
-                <div
+                <GlowCard
                   key={value.title}
                   className={cn(
-                    "relative p-8 md:p-12 lg:p-16 min-h-[320px] flex flex-col group hover:bg-secondary/20 transition-colors duration-500",
+                    "p-8 md:p-12 lg:p-16 min-h-[320px] flex flex-col group hover:bg-secondary/20 transition-colors duration-500",
                     !isTopRow && "border-t border-border",
                     !isLeftCol && "border-l border-border"
                   )}
@@ -176,7 +177,7 @@ export default function AboutPage() {
                   <p className="text-base text-muted-foreground leading-relaxed text-pretty">
                     {value.description}
                   </p>
-                </div>
+                </GlowCard>
               )
             })}
           </div>

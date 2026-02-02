@@ -9,6 +9,7 @@ import { Footer } from '@/components/footer'
 import { HolidayEffects } from '@/components/holiday-effects'
 import { ScrollToTop } from '@/components/scroll-to-top'
 import { OrganizationJsonLd, LocalBusinessJsonLd, WebsiteJsonLd } from '@/components/json-ld'
+import { SmoothScroll } from "@/components/smooth-scroll"
 import './globals.css'
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -125,12 +126,13 @@ export default function RootLayout({
         <WebsiteJsonLd />
         <ThemeProvider>
           <LanguageProvider>
-            <ScrollToTop />
-            <Header />
-            <main id="main-content">{children}</main>
-            <Footer />
-
-            <HolidayEffects />
+            <SmoothScroll>
+              <ScrollToTop />
+              <Header />
+              <main id="main-content">{children}</main>
+              <Footer />
+              <HolidayEffects />
+            </SmoothScroll>
           </LanguageProvider>
         </ThemeProvider>
       </body>
