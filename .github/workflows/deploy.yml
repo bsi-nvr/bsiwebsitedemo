@@ -1,26 +1,6 @@
-name: Deploy Next.js to CloudPanel
-
-# Deze trigger zorgt ervoor dat de actie VOLLEDIG AUTOMATISCH start bij elke push
-on:
-  push:
-    branches: [ main ] # Verander dit naar 'master' als je geen 'main' branch gebruikt
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          # Het script dat op jouw server wordt uitgevoerd:
-          script: |
+script: |
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             cd ~/htdocs/test.brainsoftict.nl
             git pull origin main
             npm install
