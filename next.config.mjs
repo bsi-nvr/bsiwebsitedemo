@@ -4,7 +4,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true,
+    // Unoptimized disabled to allow Next.js to optimize images
   },
 }
 export default nextConfig

@@ -142,6 +142,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href="/services"
+                  aria-label={locale === "en" ? "Learn more about our services" : "Lees meer over onze diensten"}
                   className="group inline-flex items-center gap-3 px-8 py-4 border border-white/40 text-white text-sm uppercase tracking-[0.2em] hover:border-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 >
                   {t.hero.learnMore}
@@ -185,6 +186,7 @@ export default function Home() {
             </div>
             <Link
               href="/services"
+              aria-label={locale === "en" ? "View all our services" : "Bekijk al onze diensten"}
               className="group inline-flex items-center gap-2 text-sm uppercase tracking-[0.2em] hover:opacity-60 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
             >
               {locale === "en" ? "View all services" : "Bekijk onze diensten"}
@@ -241,6 +243,7 @@ export default function Home() {
               </p>
               <Link
                 href="/about"
+                aria-label={locale === "en" ? "Learn more about us" : "Lees meer over ons"}
                 className="group inline-flex items-center gap-3 mt-10 px-8 py-4 border border-foreground text-sm uppercase tracking-[0.2em] hover:bg-foreground hover:text-background transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               >
                 {t.hero.learnMore}
