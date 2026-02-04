@@ -421,7 +421,7 @@ function NotFoundContent({ locale }: { locale: string }) {
     }, 30) // 30 FPS
 
     return () => clearInterval(loopInterval)
-  }, [mode, visitor, locale, speech])
+  }, [mode, visitor, locale, speech, blackHoleActive])
 
   // V24.5: AUTONOMOUS LASER (No Mouse Tracking)
   // Logic is now entirely inside the Game Loop to keep it synced.
@@ -429,6 +429,38 @@ function NotFoundContent({ locale }: { locale: string }) {
   // We'll use extra properties on laserRef if needed, or just random walk.
 
   // --- INTERACTION HANDLERS ---
+  const triggerBlackHole = () => {
+    if (blackHoleActive) return
+    setBlackHoleActive(true)
+
+    // Sequence
+    speak(locale === 'nl' ? 'OH NEE! EEN ZWART GAT!' : 'OH NO! A BLACK HOLE!', 2000)
+
+    setTimeout(() => {
+      speak(locale === 'nl' ? 'Ik heb nergens spijt van!' : 'I regret nothing!', 2000)
+    }, 2500)
+
+    setTimeout(() => {
+      speak(locale === 'nl' ? 'Hebben we wel een backup?!' : 'Do we have a backup?!', 2000)
+    }, 5000)
+
+    setTimeout(() => {
+      speak(locale === 'nl' ? 'Het is hier wel lekker rustig...' : 'It is quite peaceful here...', 2500)
+    }, 7500)
+
+    setTimeout(() => {
+      setBlackHoleActive(false)
+      setClickCount(0)
+      // Reset
+      lucaRef.current = { x: 0, y: 0, rotation: 0, scaleX: 1, scaleY: 1, emotion: 'neutral', isWalking: false, opacity: 1 }
+      if (visitorRef.current) {
+        visitorRef.current.opacity = 1
+        visitorRef.current.x = 200
+      }
+      setMode('IDLE')
+    }, 10000)
+  }
+
   const handleLaser = () => {
     if (mode !== 'IDLE' && mode !== 'LASER') return
     setMode('LASER')
@@ -476,7 +508,7 @@ function NotFoundContent({ locale }: { locale: string }) {
 
     if (friend === 'zuko') {
       setMode('TAG')
-      speak('TAG!', 2000)
+      speak(locale === 'nl' ? 'TIKKIE!' : 'TAG!', 2000)
       setTimeout(() => {
         speak(locale === 'nl' ? 'Poeh, ik ben moe. Doei!' : 'Phew, tired now. Bye!', 3000)
         setMode('LEAVE')
@@ -562,6 +594,34 @@ function NotFoundContent({ locale }: { locale: string }) {
     interactCue: 'Play with me!'
   }
 
+  // --- BLACK HOLE EFFECTS ---
+  useEffect(() => {
+    const header = document.querySelector('header')
+    const footer = document.querySelector('footer')
+
+    if (blackHoleActive) {
+      if (header) {
+        header.style.transition = 'all 2s ease-in-out'
+        header.style.transform = 'scale(0) translateY(50vh)'
+        header.style.opacity = '0'
+      }
+      if (footer) {
+        footer.style.transition = 'all 2s ease-in-out'
+        footer.style.transform = 'scale(0) translateY(-50vh)'
+        footer.style.opacity = '0'
+      }
+    } else {
+      if (header) {
+        header.style.transform = ''
+        header.style.opacity = ''
+      }
+      if (footer) {
+        footer.style.transform = ''
+        footer.style.opacity = ''
+      }
+    }
+  }, [blackHoleActive])
+
   return (
     <main className="min-h-screen flex flex-col bg-background relative overflow-hidden font-sans selection:bg-emerald-500/30 transition-colors duration-500">
       <div className="absolute inset-0 opacity-20 pointer-events-none"
@@ -575,36 +635,31 @@ function NotFoundContent({ locale }: { locale: string }) {
             handlePage() // Eat animation
             setClickCount(c => c + 1)
             if (clickCount + 1 >= 5) {
-              setBlackHoleActive(true)
-              speak('OH NO! A BLACK HOLE!', 5000)
-              setTimeout(() => {
-                setBlackHoleActive(false)
-                setClickCount(0)
-                // Reset positions
-                lucaRef.current = { x: 0, y: 0, rotation: 0, scaleX: 1, scaleY: 1, emotion: 'neutral', isWalking: false, opacity: 1 }
-                setMode('IDLE')
-              }, 6000)
+              triggerBlackHole()
             }
           }}
           title="Nom nom? (Click 5 times for destruction)"
         >
           404
         </h1>
-        <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 text-center max-w-2xl">{t.subtitle}</h2>
-        <p className="text-lg text-muted-foreground max-w-xl text-center mb-6">{t.description}</p>
 
-        <div className="flex gap-4">
-          <Link href="/" className="px-8 py-3 bg-foreground text-background rounded-full font-bold hover:scale-105 transition-transform">
-            {t.homeButton}
-          </Link>
-          <button onClick={() => setShowGame(true)} className="px-8 py-3 border-2 border-foreground text-foreground rounded-full font-bold hover:bg-foreground hover:text-background transition-colors">
-            {t.play}
-          </button>
+        <div className={`flex flex-col items-center transition-all duration-1000 ${blackHoleActive ? 'opacity-0 scale-0' : 'opacity-100 scale-100'}`}>
+          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 text-center max-w-2xl">{t.subtitle}</h2>
+          <p className="text-lg text-muted-foreground max-w-xl text-center mb-6">{t.description}</p>
+
+          <div className="flex gap-4">
+            <Link href="/" className="px-8 py-3 bg-foreground text-background rounded-full font-bold hover:scale-105 transition-transform">
+              {t.homeButton}
+            </Link>
+            <button onClick={() => setShowGame(true)} className="px-8 py-3 border-2 border-foreground text-foreground rounded-full font-bold hover:bg-foreground hover:text-background transition-colors">
+              {t.play}
+            </button>
+          </div>
         </div>
 
         {/* CONTAINER FOR PETS & GAME UI - V18.14: Increased height to h-96 for bubble space */}
         <div className="relative w-full max-w-4xl h-96 mt-8 flex items-end justify-center">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 flex gap-4 bg-background/50 p-2 rounded-full backdrop-blur-md z-50 border border-foreground/10 shadow-lg">
+          <div className={`absolute top-0 left-1/2 -translate-x-1/2 flex gap-4 bg-background/50 p-2 rounded-full backdrop-blur-md z-50 border border-foreground/10 shadow-lg transition-all duration-1000 ${blackHoleActive ? 'opacity-0 scale-0' : 'opacity-100 scale-100'}`}>
             <button onClick={handleLaser} className={`p-3 rounded-full hover:scale-110 transition-transform ${mode === 'LASER' ? 'bg-red-500/20' : 'bg-transparent'}`} title="Laser">
               <Zap className="w-6 h-6 text-red-500" />
             </button>
@@ -621,6 +676,13 @@ function NotFoundContent({ locale }: { locale: string }) {
             </button>
             <button onClick={() => handleTag('buddy')} className="p-3 bg-amber-500/10 rounded-full hover:scale-110 transition-transform" title="Buddy">
               <div className="w-6 h-6 rounded-full bg-amber-500 border-2 border-white" />
+            </button>
+            <div className="w-[1px] h-8 bg-foreground/20 my-auto" />
+            <button
+              onClick={triggerBlackHole}
+              className="px-4 py-2 bg-neutral-900 text-neutral-500 border border-neutral-800 text-xs font-bold rounded-full hover:bg-black hover:text-white hover:border-white/20 transition-all shadow-inner"
+            >
+              {locale === 'nl' ? 'NIET DRUKKEN' : 'DO NOT PRESS'}
             </button>
           </div>
 
