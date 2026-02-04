@@ -10,7 +10,7 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 import { ServiceCard } from "@/components/service-card"
 import { GlowCard } from "@/components/glow-card"
 import { Particles } from "@/components/particles"
-import { DotPattern } from "@/components/dot-pattern"
+import { GridPattern } from "@/components/grid-pattern"
 
 
 
@@ -184,13 +184,11 @@ export default function Home() {
       {/* Services Tech Grid */}
       <section className="relative py-32 lg:py-40 border-t border-border overflow-hidden">
         {/* Technical Background Pattern */}
-        <DotPattern
-          width={24}
-          height={24}
-          cx={1}
-          cy={1}
-          cr={1}
-          className="absolute inset-0 h-full w-full opacity-[0.4]"
+        {/* Technical Background Pattern */}
+        <GridPattern
+          width={50}
+          height={50}
+          className="absolute inset-0 h-full w-full opacity-[0.2] stroke-black/10 dark:stroke-white/10"
         />
 
         <div className="relative container mx-auto px-6 lg:px-12">

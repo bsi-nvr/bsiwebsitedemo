@@ -6,7 +6,7 @@ import { ArrowUpRight } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 import { ServiceCard } from "@/components/service-card"
-import { DotPattern } from "@/components/dot-pattern"
+import { GridPattern } from "@/components/grid-pattern"
 
 const serviceLinks = {
   service1: "/services/cloud-beheer",
@@ -144,13 +144,11 @@ export default function ServicesPage() {
 
       {/* Services Tech Grid */}
       <section className="relative py-32 lg:py-40 border-t border-border overflow-hidden">
-        <DotPattern
-          width={24}
-          height={24}
-          cx={1}
-          cy={1}
-          cr={1}
-          className="absolute inset-0 h-full w-full opacity-[0.3]"
+        <GridPattern
+          width={40}
+          height={40}
+          id="services-grid"
+          className="absolute inset-0 h-full w-full opacity-[0.2] stroke-black/10 dark:stroke-white/10"
         />
         <div className="relative container mx-auto px-6 lg:px-12">
           {/* Large Intro Card */}

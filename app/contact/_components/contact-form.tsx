@@ -147,7 +147,7 @@ export function ContactForm({ locale, t }: ContactFormProps) {
 
   return (
     <div className="lg:col-span-6 lg:col-start-7">
-      <div className="border border-border p-8 md:p-12 animate-on-scroll delay-200">
+      <div className="border border-border p-8 md:p-12 animate-on-scroll delay-200 bg-background/20 backdrop-blur-[1px]">
         {submitted ? (
           <div className="text-center py-16">
             <div className="w-16 h-16 border border-border mx-auto flex items-center justify-center mb-8">

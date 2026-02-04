@@ -4,7 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { useLanguage } from "@/lib/language-context"
 
-import { DotPattern } from "@/components/dot-pattern"
+import { GridPattern } from "@/components/grid-pattern"
 
 export function Footer() {
   const { t, locale } = useLanguage()
@@ -13,13 +13,10 @@ export function Footer() {
   return (
     <footer className="relative !bg-black text-white overflow-hidden border-t border-white/10">
       {/* Technical Background Pattern */}
-      <DotPattern
-        width={32}
-        height={32}
-        cx={2}
-        cy={2}
-        cr={2}
-        className="absolute inset-0 h-full w-full opacity-[0.15] fill-white"
+      <GridPattern
+        width={50}
+        height={50}
+        className="absolute inset-0 h-full w-full opacity-[0.1] stroke-white/20"
       />
 
       <div className="relative z-10 container mx-auto px-6 lg:px-12">
@@ -47,9 +44,9 @@ export function Footer() {
               </p>
 
               <div className="flex flex-col gap-2">
-                <h4 className="text-sm font-semibold uppercase tracking-wider text-white">
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
                   BrainSoft ICT
-                </h4>
+                </h3>
                 <p className="text-sm text-gray-400">Talent dat werkt</p>
               </div>
             </div>

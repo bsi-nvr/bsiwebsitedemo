@@ -9,7 +9,7 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 import { TeamMemberCard, type TeamMember } from "@/components/team-member-card"
 import { GlowCard } from "@/components/glow-card"
 
-import { DotPattern } from "@/components/dot-pattern"
+import { GridPattern } from "@/components/grid-pattern"
 
 export default function AboutPage() {
   const { t, locale } = useLanguage()
@@ -117,13 +117,11 @@ export default function AboutPage() {
 
       {/* Mission Section */}
       <section className="relative py-32 lg:py-40 border-b border-border overflow-hidden">
-        <DotPattern
+        <GridPattern
           width={40}
           height={40}
-          cx={1}
-          cy={1}
-          cr={1}
-          className="absolute inset-0 h-full w-full opacity-[0.3]"
+          id="mission-grid"
+          className="absolute inset-0 h-full w-full opacity-[0.2] stroke-black/10 dark:stroke-white/10"
         />
         <div className="relative container mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-8 md:gap-12 max-w-6xl">
@@ -196,13 +194,11 @@ export default function AboutPage() {
 
       {/* Team Section */}
       <section className="relative py-32 lg:py-40 border-t border-border overflow-hidden">
-        <DotPattern
+        <GridPattern
           width={24}
           height={24}
-          cx={1}
-          cy={1}
-          cr={1}
-          className="absolute inset-0 h-full w-full opacity-[0.3]"
+          id="team-grid"
+          className="absolute inset-0 h-full w-full opacity-[0.2] stroke-black/10 dark:stroke-white/10"
         />
         <div className="relative container mx-auto px-6 lg:px-12">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 md:mb-24 animate-on-scroll">
