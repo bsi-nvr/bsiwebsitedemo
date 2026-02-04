@@ -3,6 +3,7 @@
 import { Languages, ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { ThemeToggle } from "./theme-toggle"
+import { LanguageDropdown } from "./language-dropdown"
 
 interface DesktopActionsProps {
   locale: string
@@ -23,20 +24,7 @@ export function DesktopActions({
 }: DesktopActionsProps) {
   return (
     <div className="hidden lg:flex items-center gap-1">
-      <button
-        onClick={onToggleLocale}
-        className={cn(
-          "flex items-center gap-1 font-medium text-foreground rounded-full transition-colors hover:bg-foreground/5",
-          "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-          "transition-[padding] duration-300 ease-out",
-          scrolled ? "px-3 py-2.5 text-sm" : "px-3.5 py-2.5 text-sm"
-        )}
-        aria-label={locale === "en" ? "Switch to Dutch" : "Switch to English"}
-      >
-        <Languages className="w-4 h-4" aria-hidden="true" />
-        <span>{locale.toUpperCase()}</span>
-        <ChevronDown className="w-3 h-3" aria-hidden="true" />
-      </button>
+      <LanguageDropdown scrolled={scrolled} />
 
       {mounted && (
         <ThemeToggle

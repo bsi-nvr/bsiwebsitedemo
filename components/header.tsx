@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useCallback } from "react"
+import { useEffect, useState, useCallback, useRef } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
@@ -12,8 +12,6 @@ import { DesktopActions } from "./header/desktop-actions"
 import { MobileActions } from "./header/mobile-actions"
 import { MobileMenu } from "./header/mobile-menu"
 
-const SCROLL_THRESHOLD = 60
-
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [mounted, setMounted] = useState(false)
@@ -22,12 +20,32 @@ export function Header() {
   const { locale, setLocale, t } = useLanguage()
   const pathname = usePathname()
 
+  const [isCompact, setIsCompact] = useState(false)
+  const lastScrollY = useRef(0)
+
   useEffect(() => {
     setMounted(true)
     const handleScroll = () => {
-      setScrolled(window.scrollY > SCROLL_THRESHOLD)
+      const currentScrollY = window.scrollY
+      const isScrollingDown = currentScrollY > lastScrollY.current
+      const isScrollingUp = currentScrollY < lastScrollY.current
+
+      // Update scroll direction state
+      lastScrollY.current = currentScrollY
+
+      if (currentScrollY < 50) {
+        setIsCompact(false)
+        setScrolled(false)
+      } else {
+        setScrolled(true)
+        if (isScrollingDown) {
+          setIsCompact(true)
+        } else if (isScrollingUp) {
+          setIsCompact(false)
+        }
+      }
     }
-    handleScroll()
+
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
@@ -85,22 +103,22 @@ export function Header() {
       </a>
 
       <header className="fixed top-0 left-0 right-0 z-50 pointer-events-none">
-        <div className="flex justify-center px-4 lg:px-4">
+        <div className="flex justify-center">
           <nav
             aria-label="Main navigation"
             className={cn(
-              "pointer-events-auto flex items-center bg-white/70 dark:bg-black/70 backdrop-blur-md border border-white/20 dark:border-white/10 shadow-sm rounded-full", // Explicit frosted glass
-              "w-full justify-between mx-0 mt-4 px-4 py-3",
-              "lg:w-auto lg:inline-flex lg:justify-start lg:gap-1 lg:mx-0",
-              "transition-[margin,padding,transform,background-color,border-color] duration-500 ease-out", // Added transition props
-              scrolled
-                ? "lg:mt-3 lg:px-3 lg:py-2.5 lg:scale-[0.98]"
-                : "lg:mt-6 lg:px-4 lg:py-3 lg:scale-100"
+              "pointer-events-auto flex items-center bg-white/70 dark:bg-black/70 backdrop-blur-md border border-white/20 dark:border-white/10 shadow-sm",
+              "px-5 mx-auto mt-5 rounded-full",
+              "w-full justify-between transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] will-change-[max-width,padding]",
+              // Standard CSS classes for width and padding transitions
+              isCompact
+                ? "max-w-3xl py-2" // Compact: highly constrained (Upstart style)
+                : "max-w-5xl py-3", // Expanded: constrained but comfortable padding
             )}
           >
             <Link
               href="/"
-              className="flex-shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-full"
+              className="flex-shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-full transition-opacity duration-300"
               aria-label="BrainSoft ICT - Home"
             >
               <Image
@@ -109,39 +127,34 @@ export function Header() {
                 width={48}
                 height={48}
                 sizes="(min-width: 1024px) 48px, 40px"
-                className={cn(
-                  "object-contain w-10 h-10 transition-[width,height] duration-300 ease-out",
-                  scrolled ? "lg:w-10 lg:h-10" : "lg:w-12 lg:h-12"
-                )}
+                className="object-contain w-10 h-10 lg:w-12 lg:h-12"
                 priority
               />
             </Link>
 
-            <div className="hidden lg:block w-8" aria-hidden="true" />
-
             <DesktopNav navLinks={navLinks} pathname={pathname} scrolled={scrolled} />
 
-            <div className="hidden lg:block w-3" aria-hidden="true" />
+            <div className="flex items-center gap-2">
+              <DesktopActions
+                locale={locale}
+                scrolled={scrolled}
+                mounted={mounted}
+                isDark={isDark}
+                onToggleLocale={toggleLocale}
+                onToggleTheme={toggleTheme}
+              />
 
-            <DesktopActions
-              locale={locale}
-              scrolled={scrolled}
-              mounted={mounted}
-              isDark={isDark}
-              onToggleLocale={toggleLocale}
-              onToggleTheme={toggleTheme}
-            />
-
-            <MobileActions
-              locale={locale}
-              scrolled={scrolled}
-              mounted={mounted}
-              isDark={isDark}
-              mobileOpen={mobileOpen}
-              onToggleLocale={toggleLocale}
-              onToggleTheme={toggleTheme}
-              onToggleMenu={() => setMobileOpen(!mobileOpen)}
-            />
+              <MobileActions
+                locale={locale}
+                scrolled={scrolled}
+                mounted={mounted}
+                isDark={isDark}
+                mobileOpen={mobileOpen}
+                onToggleLocale={toggleLocale}
+                onToggleTheme={toggleTheme}
+                onToggleMenu={() => setMobileOpen(!mobileOpen)}
+              />
+            </div>
           </nav>
         </div>
       </header>

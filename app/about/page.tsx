@@ -9,6 +9,8 @@ import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 import { TeamMemberCard, type TeamMember } from "@/components/team-member-card"
 import { GlowCard } from "@/components/glow-card"
 
+import { DotPattern } from "@/components/dot-pattern"
+
 export default function AboutPage() {
   const { t, locale } = useLanguage()
   useScrollAnimation()
@@ -114,8 +116,16 @@ export default function AboutPage() {
       </section>
 
       {/* Mission Section */}
-      <section className="py-32 lg:py-40 border-b border-border">
-        <div className="container mx-auto px-6 lg:px-12">
+      <section className="relative py-32 lg:py-40 border-b border-border overflow-hidden">
+        <DotPattern
+          width={40}
+          height={40}
+          cx={1}
+          cy={1}
+          cr={1}
+          className="absolute inset-0 h-full w-full opacity-[0.3]"
+        />
+        <div className="relative container mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-8 md:gap-12 max-w-6xl">
             <div className="animate-on-scroll md:min-w-[280px] lg:min-w-[320px]">
               <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
@@ -185,8 +195,16 @@ export default function AboutPage() {
       </section>
 
       {/* Team Section */}
-      <section className="py-32 lg:py-40 border-t border-border">
-        <div className="container mx-auto px-6 lg:px-12">
+      <section className="relative py-32 lg:py-40 border-t border-border overflow-hidden">
+        <DotPattern
+          width={24}
+          height={24}
+          cx={1}
+          cy={1}
+          cr={1}
+          className="absolute inset-0 h-full w-full opacity-[0.3]"
+        />
+        <div className="relative container mx-auto px-6 lg:px-12">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 md:mb-24 animate-on-scroll">
             <div className="max-w-2xl">
               <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground">

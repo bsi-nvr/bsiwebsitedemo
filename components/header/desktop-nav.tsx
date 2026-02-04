@@ -39,9 +39,10 @@ export function DesktopNav({ navLinks, pathname, scrolled }: DesktopNavProps) {
             className={cn(
               "relative font-medium rounded-full transition-colors",
               "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-              "transition-[padding] duration-300 ease-out",
-              scrolled ? "px-4 py-2.5 text-sm" : "px-5 py-2.5 text-sm",
-              isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+              "transition-[padding,font-size] duration-300 ease-out",
+              scrolled ? "px-3 py-2 text-sm" : "px-5 py-2.5 text-sm",
+              isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground",
+              "whitespace-nowrap"
             )}
           >
             {(hoveredPath === link.href || (isActive && hoveredPath === null)) && (

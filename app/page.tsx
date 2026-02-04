@@ -3,11 +3,15 @@
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
+import { cn } from "@/lib/utils"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { useLanguage } from "@/lib/language-context"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 import { ServiceCard } from "@/components/service-card"
 import { GlowCard } from "@/components/glow-card"
+import { Particles } from "@/components/particles"
+import { DotPattern } from "@/components/dot-pattern"
+
 
 
 export default function Home() {
@@ -65,6 +69,9 @@ export default function Home() {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
         </motion.div>
+
+        {/* Particle Effects */}
+        <Particles />
 
         {/* Content */}
         <div className="relative z-10 container mx-auto px-6 lg:px-12 pt-32 pb-20">
@@ -172,9 +179,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services Bento Grid */}
-      <section className="py-32 lg:py-40 border-t border-border">
-        <div className="container mx-auto px-6 lg:px-12">
+
+
+      {/* Services Tech Grid */}
+      <section className="relative py-32 lg:py-40 border-t border-border overflow-hidden">
+        {/* Technical Background Pattern */}
+        <DotPattern
+          width={24}
+          height={24}
+          cx={1}
+          cy={1}
+          cr={1}
+          className="absolute inset-0 h-full w-full opacity-[0.4]"
+        />
+
+        <div className="relative container mx-auto px-6 lg:px-12">
           {/* Section Header */}
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 md:mb-24 animate-on-scroll">
             <div>
@@ -195,8 +214,8 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* Bento Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border transition-colors duration-500">
+          {/* Premium Tech Grid (2 Columns for 4 items) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {services.map((service, index) => (
               <ServiceCard
                 key={service.number}
@@ -205,7 +224,8 @@ export default function Home() {
                 description={service.description}
                 href={service.href}
                 index={index}
-                variant="bento"
+                variant="bento" // Reusing prop name but now renders Tech Grid style
+                className="h-full"
               />
             ))}
           </div>

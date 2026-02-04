@@ -6,6 +6,7 @@ import { ArrowUpRight } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 import { ServiceCard } from "@/components/service-card"
+import { DotPattern } from "@/components/dot-pattern"
 
 const serviceLinks = {
   service1: "/services/cloud-beheer",
@@ -141,16 +142,24 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Services Bento Grid */}
-      <section className="py-32 lg:py-40 border-t border-border">
-        <div className="container mx-auto px-6 lg:px-12">
+      {/* Services Tech Grid */}
+      <section className="relative py-32 lg:py-40 border-t border-border overflow-hidden">
+        <DotPattern
+          width={24}
+          height={24}
+          cx={1}
+          cy={1}
+          cr={1}
+          className="absolute inset-0 h-full w-full opacity-[0.3]"
+        />
+        <div className="relative container mx-auto px-6 lg:px-12">
           {/* Large Intro Card */}
           <div className="animate-on-scroll">
             <div className="grid grid-cols-1 lg:grid-cols-2 border border-border">
               <div className="p-8 md:p-12 lg:p-16 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-border">
                 <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-serif font-light leading-tight text-balance">
-                  {locale === "en" 
-                    ? "Complete IT solutions for growing businesses" 
+                  {locale === "en"
+                    ? "Complete IT solutions for growing businesses"
                     : "Complete IT-oplossingen voor groeiende bedrijven"}
                 </h2>
                 <p className="mt-6 text-lg lg:text-xl text-muted-foreground leading-relaxed text-pretty">
