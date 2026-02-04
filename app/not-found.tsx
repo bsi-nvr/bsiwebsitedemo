@@ -2,10 +2,12 @@
 
 import React, { useState, useEffect, useRef, useCallback } from "react"
 import Link from "next/link"
-import { Home, FileX, Zap, Users, Heart } from "lucide-react"
+import { useTheme } from "next-themes" // Added import
+import { Home, FileX, Zap, Users, Heart, Sparkles, Skull, Eye } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
+import { cn } from "@/lib/utils" // Added cn import
 import { AchievementProvider, useAchievements } from "./not-found/_components/Achievements"
-import { Pet, PetVariant } from "./not-found/_components/Pet"
+import { Pet, PetVariant } from "./not-found/_components/Pet" // Restored Import
 import { PetGame } from "./not-found/_components/PetGame"
 
 // --- TYPES ---
@@ -19,10 +21,10 @@ type EntityState = {
   isWalking: boolean
 }
 
-type GameMode = 'IDLE' | 'LASER' | 'TAG' | 'SLEEP' | 'LEAVE' | 'YARN' | 'PAGE' | 'FETCH' | 'SASS' | 'LOVE'
+type GameMode = 'IDLE' | 'LASER' | 'TAG' | 'SLEEP' | 'LEAVE' | 'YARN' | 'PAGE' | 'FETCH' | 'SASS' | 'LOVE' | 'ZERO_GRAVITY' // Added modes
 
-const HEADER_HEIGHT = 100 // Approximation
-const FLOOR_Y = 0 // Relative to container bottom
+const HEADER_HEIGHT = 100
+const FLOOR_Y = 0
 
 export default function NotFound() {
   const { locale } = useLanguage()
@@ -37,6 +39,7 @@ export default function NotFound() {
 function NotFoundContent({ locale }: { locale: string }) {
   const { unlockAchievement } = useAchievements()!
   // --- STATE ---
+  const containerRef = useRef<HTMLDivElement>(null) // Added Ref
   const [showGame, setShowGame] = useState(false)
   const [speech, setSpeech] = useState<string | null>(null)
   const [speaker, setSpeaker] = useState<'luca' | 'visitor'>('luca') // V20: Track who is speaking
@@ -79,41 +82,68 @@ function NotFoundContent({ locale }: { locale: string }) {
     { b: "Het werkte net nog!", l: "Tuurlijk." },
     { l: "Nog steeds aan het laden.", b: "Nog steeds jij." },
     { b: "We hebben het kapotgemaakt.", l: "Jij hebt het kapotgemaakt." },
-    { l: "Weer een 404.", b: "Indrukwekkend." }
+    { l: "Weer een 404.", b: "Indrukwekkend." },
+    { b: "Stekker erin?", l: "Ja..." },
+    { l: "Ik heb een bug!", b: "Nee, een feature." },
+    { b: "Dark mode?", l: "Light mode doet pijn." },
+    { l: "Ping?", b: "Pong." },
+    { b: "Productie deleten?", l: "Doe het." },
+    { l: "Waar is de cloud?", b: "Gewoon iemands anders PC." }
   ]
 
   const BUDDY_DIALOGUES_EN = [
     { l: "404.", b: "Like your plan." },
     { b: "Look! It’s Buddy!", l: "Unfortunately." },
     { l: "Page not found.", b: "We noticed." },
-    { b: "Maybe refresh?", l: "Maybe think." },
-    { l: "Wrong URL.", b: "Choices." }, // Shortened to fit
+    { b: "It works on my machine.", l: "Good for you." },
+    { l: "Wrong URL.", b: "Layer 8 issue." },
     { b: "404 error.", l: "User error." },
-    { l: "We are lost.", b: "You are lost." },
+    { l: "We are lost.", b: "Try sudo." },
     { b: "Oops.", l: "Classic." },
-    { l: "This page doesn't exist.", b: "Like your luck." },
-    { b: "I can help!", l: "That's cute." },
+    { l: "This page doesn't exist.", b: "Like your documentation." },
+    { b: "I'm compiling.", l: "You're napping." },
     { b: "Are we there yet?", l: "No." },
     { l: "This is awkward.", b: "A little." },
     { b: "At least we're together.", l: "Okay. That helps." },
-    { l: "Not found.", b: "But we tried!" },
-    { b: "Should we panic?", l: "Later." },
-    { l: "Nothing here.", b: "Like your search." },
+    { l: "Not found.", b: "Did you git pull?" },
+    { b: "Should we panic?", l: "Kernel panic?" },
+    { l: "Nothing here.", b: "NullPointer." },
     { b: "It worked just now!", l: "Sure." },
-    { l: "Still loading.", b: "Still you." },
-    { b: "We broke it.", l: "You broke it." },
-    { l: "Another 404.", b: "Impressive." }
+    { l: "Still loading.", b: "Infinite loop." },
+    { b: "We broke it.", l: "Legacy code." },
+    { l: "Another 404.", b: "Impressive." },
+    { b: "Is it plugged in?", l: "Yes..." },
+    { l: "I found a bug!", b: "It's a feature." },
+    { b: "Dark mode?", l: "Light mode is for the weak." },
+    { l: "Ping?", b: "Pong." },
+    { b: "Delete production?", l: "Do it." },
+    { l: "Where is the cloud?", b: "It's just someone else's computer." }
   ]
 
   const [hearts, setHearts] = useState<{ id: number, x: number, y: number, op: number, v: number }[]>([])
+  const [showSpaceDust, setShowSpaceDust] = useState(true) // Added Toggle State
 
   // V18.10: Black Hole Easter Egg
   const [clickCount, setClickCount] = useState(0)
   const [blackHoleActive, setBlackHoleActive] = useState(false)
+  const [matrixMode, setMatrixMode] = useState(false) // Easter Egg: Matrix Mode
 
   // --- GAME STATE ---
+
   const [mode, setMode] = useState<GameMode>('IDLE')
   const [visitor, setVisitor] = useState<PetVariant | null>(null)
+
+  // Use Chaos Hook
+
+
+  // Zero Gravity Style Injection
+  useEffect(() => {
+    if (mode === 'ZERO_GRAVITY') {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+  }, [mode])
 
   // We use Refs for physics to avoid React render lag, then sync to State for render
   const lucaRef = useRef<EntityState & { opacity: number }>({ x: 0, y: 0, rotation: 0, scaleX: 1, scaleY: 1, emotion: 'neutral', isWalking: false, opacity: 1 })
@@ -121,6 +151,7 @@ function NotFoundContent({ locale }: { locale: string }) {
   const targetRef = useRef({ x: 0, y: 0 })
   const laserRef = useRef({ x: 0, y: 0, active: false })
   const ballRef = useRef({ x: 0, y: 0, vx: 0, vy: 0, active: false })
+  const fetchPhaseRef = useRef(0) // 0: Approach, 1: Drop/Wait, 2: Done
 
   // Render State (Synced from Refs)
   const [renderTrigger, setRenderTrigger] = useState(0)
@@ -281,16 +312,11 @@ function NotFoundContent({ locale }: { locale: string }) {
         }
       }
 
-      // MODE: FETCH (Misty - V21 GIFT REWRITE)
-      else if (mode === 'FETCH') {
-        // 3 Phases: 
-        // 1. CHASE/APPROACH: ball.active = false. Misty walks to Luca. Bone attached to Misty.
-        // 2. DROP: ball.active = true. Bone falls. Misty happy.
-        // 3. REACT: Wait a bit, Luca speaks, Misty leaves.
-
-        if (!ball.active && visitor) {
-          // Phase 1: Approach
-          const targetX = luca.x + 60 // Stop 60px to right of Luca
+      // MODE: FETCH (Misty - V21 GIFT FIX)
+      else if (mode === 'FETCH' && visitor) {
+        // Phase 0: Approach
+        if (fetchPhaseRef.current === 0) {
+          const targetX = luca.x + 60
           const dx = targetX - vis.x
 
           if (Math.abs(dx) > 5) {
@@ -298,49 +324,49 @@ function NotFoundContent({ locale }: { locale: string }) {
             vis.isWalking = true
             vis.scaleX = dx > 0 ? 1 : -1
 
-            // Bone Logic: Attach to Mouth
-            // Misty Mouth Offset approx: X: + 10 (facing right) or -10, Y: -20
+            // Attach bone
             const mouthOffsetX = vis.scaleX > 0 ? 15 : -15
             ball.x = vis.x + mouthOffsetX
             ball.y = vis.y - 15
+            ball.active = false
           } else {
-            // Arrived! Phase 2: Drop
+            // Arrived
+            fetchPhaseRef.current = 1 // Next phase
             vis.isWalking = false
-            vis.scaleX = -1 // Face Luca
+            vis.scaleX = -1
 
-            ball.active = true // Physics on
-            ball.vx = -2 // Toss slightly to Luca
+            // Drop Bone
+            ball.active = true
+            ball.vx = -2
             ball.vy = -3
-
-            // Schedule Phase 3 (Reaction) - One-off via timeout logic or trigger?
-            // Use a simple timeout wrapper referenced by a ref? 
-            // Or just check if ball is on ground.
           }
         }
-        else if (ball.active) {
-          // Phase 2: Physics Fall
-          ball.x += ball.vx
-          ball.y += ball.vy
-          ball.vy += 0.5
 
-          if (ball.y >= 0) {
-            ball.y = 0
-            ball.vy = 0
-            ball.vx = 0
-            // Landed
+        // Phase 1: Ball Physics & Wait
+        if (fetchPhaseRef.current === 1) {
+          if (ball.active) {
+            ball.x += ball.vx
+            ball.y += ball.vy
+            ball.vy += 0.5
 
-            if (visitor && visitorRef.current.emotion !== 'happy') {
-              visitorRef.current.emotion = 'happy' // Mark as processed
-              // Immediately trigger reaction (overwrite speech if needed)
+            if (ball.y >= 0) {
+              ball.y = 0
+              ball.vy = 0
+              ball.vx = 0
+              // Landed -> Trigger Reaction ONCE
+              fetchPhaseRef.current = 2
+
+              vis.emotion = 'happy'
+              speak(locale === 'nl' ? 'Bedankt...?' : 'Thanks...?', 2000, 'luca')
+
               setTimeout(() => {
-                speak(locale === 'nl' ? 'Bedankt...?' : 'Thanks...?', 2000, 'luca')
-                setTimeout(() => setMode('LEAVE'), 3000)
-              }, 500)
+                setMode('LEAVE')
+              }, 2500)
             }
           }
         }
 
-        // Luca watches
+        // Luca watches ball
         luca.scaleX = ball.x > luca.x ? 1 : -1
       }
 
@@ -423,6 +449,13 @@ function NotFoundContent({ locale }: { locale: string }) {
     return () => clearInterval(loopInterval)
   }, [mode, visitor, locale, speech, blackHoleActive])
 
+  // RESET HANDLER for Fetch Phase
+  useEffect(() => {
+    if (mode === 'FETCH') {
+      fetchPhaseRef.current = 0
+    }
+  }, [mode])
+
   // V24.5: AUTONOMOUS LASER (No Mouse Tracking)
   // Logic is now entirely inside the Game Loop to keep it synced.
   // We use laserRef.current to store position (x, y) and active state.
@@ -434,19 +467,53 @@ function NotFoundContent({ locale }: { locale: string }) {
     setBlackHoleActive(true)
 
     // Sequence
+    // V25: Randomized Black Hole Text
+    const VARIANTS = [
+      { // DevOps
+        nl: ['Sudo rm -rf / geïnitieerd...', 'Productie database verwijderen...', 'Hopelijk heb je gecommit...', 'Tot ziens in /dev/null...'],
+        en: ['Sudo rm -rf / initiated...', 'Deleting production database...', 'Hope you committed your changes...', 'See you in /dev/null...']
+      },
+      { // Physics
+        nl: ['Wie deelde er door nul?', 'Singulariteit bereikt...', 'Spaghettificatie in 3... 2... 1...', 'Dit is waarom we niets leuks kunnen hebben.'],
+        en: ['Who divided by zero?', 'Singularity reached...', 'Spaghettification in 3... 2... 1...', 'This is why we can\'t have nice things.']
+      },
+      { // Support
+        nl: ['Heb je het universum aan en uit gezet?', 'Ticket #404 aangemaakt...', 'Escaleren naar 2e lijns...', 'Ticket gesloten: Won\'t Fix.'],
+        en: ['Did you turn the universe off and on?', 'Ticket #404 created...', 'Escalating to Tier 2...', 'Ticket closed: Won\'t Fix.']
+      },
+      { // Quantum
+        nl: ['Schrödingers Website: Dood en Levend...', 'Golffunctie stort in...', 'Multiversum betreden...', 'Fout: Tijdlijn afwijkend.'],
+        en: ['Schrödinger\'s Website: Dead and Alive...', 'Collapsing the wave function...', 'Entering the Multiverse...', 'Error: Timeline divergent.']
+      },
+      { // Retro
+        nl: ['Inbellen op het internet...', 'Blaas even in de cartridge...', 'VHS terugspoelen...', 'Buffer underrun... laden...'],
+        en: ['Dialing up the internet...', 'Please blow into the cartridge...', 'Rewinding the VHS...', 'Buffer underrun... loading...']
+      },
+      { // Server Room
+        nl: ['De server hamsters zijn moe...', 'Magische rook ontsnapt...', 'Firmware wordt geüpdatet...', 'Datacenter herstarten...'],
+        en: ['The server hamsters are tired...', 'Magic smoke escaping...', 'Updating firmware...', 'Unplugging and replugging the datacenter...']
+      }
+    ]
+    const variant = VARIANTS[Math.floor(Math.random() * VARIANTS.length)]
+    const texts = locale === 'nl' ? variant.nl : variant.en
+
     speak(locale === 'nl' ? 'OH NEE! EEN ZWART GAT!' : 'OH NO! A BLACK HOLE!', 2000)
 
     setTimeout(() => {
-      speak(locale === 'nl' ? 'Ik heb nergens spijt van!' : 'I regret nothing!', 2000)
+      speak(texts[0], 2000)
     }, 2500)
 
     setTimeout(() => {
-      speak(locale === 'nl' ? 'Hebben we wel een backup?!' : 'Do we have a backup?!', 2000)
+      speak(texts[1], 2000)
     }, 5000)
 
     setTimeout(() => {
-      speak(locale === 'nl' ? 'Het is hier wel lekker rustig...' : 'It is quite peaceful here...', 2500)
+      speak(texts[2], 2500)
     }, 7500)
+
+    setTimeout(() => {
+      speak(texts[3], 2000)
+    }, 10000)
 
     setTimeout(() => {
       setBlackHoleActive(false)
@@ -458,7 +525,7 @@ function NotFoundContent({ locale }: { locale: string }) {
         visitorRef.current.x = 200
       }
       setMode('IDLE')
-    }, 10000)
+    }, 12500)
   }
 
   const handleLaser = () => {
@@ -530,33 +597,44 @@ function NotFoundContent({ locale }: { locale: string }) {
       targetRef.current = { x: 70, y: 0 }
 
       const dialogues = locale === 'nl' ? BUDDY_DIALOGUES_NL : BUDDY_DIALOGUES_EN
-      const dialogue = dialogues[Math.floor(Math.random() * dialogues.length)]
 
-      // Wait for walk in (1.5s)
-      setTimeout(() => {
-        // Check who speaks first
-        if (dialogue.b && !dialogue.l) {
-          speak(dialogue.b, 3000, 'visitor')
-        } else if (dialogue.l && !dialogue.b) { // Should not happen in data but safety
-          speak(dialogue.l, 3000, 'luca')
-        } else {
-          // Conversation
-          // SIMPLER STRATEGY:
-          // I will just use the text.
-          // Case 1: Luca First
-          if (Object.keys(dialogue)[0] === 'l') {
-            speak(dialogue.l as string, 2500, 'luca')
-            setTimeout(() => speak(dialogue.b as string, 3000, 'visitor'), 3000)
-          } else {
-            speak(dialogue.b as string, 2500, 'visitor')
-            setTimeout(() => speak(dialogue.l as string, 3000, 'luca'), 3000)
-          }
+      // Select 3 random unique dialogues
+      const selectedDialogues: any[] = []
+      const usedIndices = new Set()
+      while (selectedDialogues.length < 3 && selectedDialogues.length < dialogues.length) {
+        const idx = Math.floor(Math.random() * dialogues.length)
+        if (!usedIndices.has(idx)) {
+          usedIndices.add(idx)
+          selectedDialogues.push(dialogues[idx])
         }
+      }
+
+      // Chain logic
+      // Intro walk is 1.5s
+      // Exchange 1: starts at 1.5s (takes ~6s total)
+      // Exchange 2: starts at 7.5s (takes ~6s total)
+      // Exchange 3: starts at 13.5s (takes ~6s total)
+      // Leave: starts at 19.5s
+
+      setTimeout(() => {
+        let delay = 0
+        selectedDialogues.forEach((dialogue, i) => {
+          setTimeout(() => {
+            if (Object.keys(dialogue)[0] === 'l') {
+              speak(dialogue.l as string, 2500, 'luca')
+              setTimeout(() => speak(dialogue.b as string, 3000, 'visitor'), 2600)
+            } else {
+              speak(dialogue.b as string, 2500, 'visitor')
+              setTimeout(() => speak(dialogue.l as string, 3000, 'luca'), 2600)
+            }
+          }, delay)
+          delay += 6000 // 6 seconds per exchange
+        })
       }, 1500)
 
       setTimeout(() => {
         setMode('LEAVE')
-      }, 8500)
+      }, 20000) // 1.5 start + 3 * 6s + buffer
 
     } else if (friend === 'lilly') {
       speak(locale === 'nl' ? 'Hoi Lilly!' : 'Hi Lilly!', 2000, 'luca')
@@ -616,20 +694,56 @@ function NotFoundContent({ locale }: { locale: string }) {
         header.style.opacity = ''
       }
       if (footer) {
-        footer.style.transform = ''
         footer.style.opacity = ''
+        footer.style.transform = ''
       }
     }
   }, [blackHoleActive])
 
+  // KONAMI CODE LISTENER
+  useEffect(() => {
+    const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
+    let cursor = 0
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === konamiCode[cursor]) {
+        cursor++
+        if (cursor === konamiCode.length) {
+          setMatrixMode(prev => !prev)
+          speak(locale === 'nl' ? 'De Matrix heeft je...' : 'The Matrix has you...', 3000)
+          cursor = 0
+        }
+      } else {
+        cursor = 0
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [locale])
+
+
+
   return (
-    <main className="min-h-screen flex flex-col bg-background relative overflow-hidden font-sans selection:bg-emerald-500/30 transition-colors duration-500">
+    <div
+      ref={containerRef}
+      className={cn(
+        "relative w-full h-screen overflow-hidden flex flex-col items-center justify-center select-none font-sans transition-colors duration-500",
+        // Matrix Mode Styles
+        matrixMode ? "bg-black text-[#00FF41] font-mono" : "bg-background text-foreground",
+        mode === 'ZERO_GRAVITY' && "float-children"
+      )}>
       <div className="absolute inset-0 opacity-20 pointer-events-none"
-        style={{ backgroundImage: 'radial-gradient(var(--foreground) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+        style={{
+          backgroundImage: matrixMode
+            ? 'linear-gradient(0deg, transparent 24%, rgba(0, 255, 65, .3) 25%, rgba(0, 255, 65, .3) 26%, transparent 27%, transparent 74%, rgba(0, 255, 65, .3) 75%, rgba(0, 255, 65, .3) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(0, 255, 65, .3) 25%, rgba(0, 255, 65, .3) 26%, transparent 27%, transparent 74%, rgba(0, 255, 65, .3) 75%, rgba(0, 255, 65, .3) 76%, transparent 77%, transparent)'
+            : 'radial-gradient(var(--foreground) 1px, transparent 1px)',
+          backgroundSize: matrixMode ? '30px 30px' : '40px 40px'
+        }} />
 
       <div className="flex-grow flex flex-col items-center justify-center relative z-10 px-4 pt-20">
         <h1
-          className={`text-9xl font-black text-black dark:text-white mb-4 select-none cursor-pointer transition-transform duration-700 ${blackHoleActive ? 'scale-0 rotate-[720deg]' : 'hover:scale-105 active:scale-95'}`}
+          className={`text-9xl font-black ${matrixMode ? 'text-[#00FF41] animate-pulse' : 'text-black dark:text-white'} mb-4 select-none cursor-pointer transition-transform duration-700 ${blackHoleActive ? 'scale-0 rotate-[720deg]' : 'hover:scale-105 active:scale-95'}`}
           onClick={() => {
             if (blackHoleActive) return
             handlePage() // Eat animation
@@ -659,12 +773,15 @@ function NotFoundContent({ locale }: { locale: string }) {
 
         {/* CONTAINER FOR PETS & GAME UI - V18.14: Increased height to h-96 for bubble space */}
         <div className="relative w-full max-w-4xl h-96 mt-8 flex items-end justify-center">
-          <div className={`absolute top-0 left-1/2 -translate-x-1/2 flex gap-4 bg-background/50 p-2 rounded-full backdrop-blur-md z-50 border border-foreground/10 shadow-lg transition-all duration-1000 ${blackHoleActive ? 'opacity-0 scale-0' : 'opacity-100 scale-100'}`}>
-            <button onClick={handleLaser} className={`p-3 rounded-full hover:scale-110 transition-transform ${mode === 'LASER' ? 'bg-red-500/20' : 'bg-transparent'}`} title="Laser">
-              <Zap className="w-6 h-6 text-red-500" />
-            </button>
-            {/* V19: Removed Eat Page Button */}
-            <div className="w-[1px] h-8 bg-foreground/20 my-auto" />
+          <div className={`absolute top-0 left-1/2 -translate-x-1/2 flex gap-4 bg-background/50 p-2 rounded-full backdrop-blur-md z-50 border border-foreground/10 shadow-lg transition-all duration-1000 items-center ${blackHoleActive ? 'opacity-0 scale-0' : 'opacity-100 scale-100'}`}>
+
+
+
+
+
+
+
+            {/* FRIENDS (Keep Left Alone as requested, but maybe compacted?) */}
             <button onClick={() => handleTag('zuko')} className="p-3 bg-blue-500/10 rounded-full hover:scale-110 transition-transform" title="Zuko">
               <div className="w-6 h-6 rounded-full bg-blue-400 border-2 border-white" />
             </button>
@@ -677,10 +794,25 @@ function NotFoundContent({ locale }: { locale: string }) {
             <button onClick={() => handleTag('buddy')} className="p-3 bg-amber-500/10 rounded-full hover:scale-110 transition-transform" title="Buddy">
               <div className="w-6 h-6 rounded-full bg-amber-500 border-2 border-white" />
             </button>
-            <div className="w-[1px] h-8 bg-foreground/20 my-auto" />
+
+
+
+            {/* HAL 9000 (Keep) */}
+            <button onClick={() => {
+              speak(locale === 'nl' ? "Sorry Dave, dat kan ik niet doen." : "I'm sorry Dave, I'm afraid I can't do that.", 4000)
+            }} className="p-3 bg-red-500/10 rounded-full hover:scale-110 transition-transform" title="HAL 9000">
+              <Eye className="w-6 h-6 text-red-600" />
+            </button>
+
+
+
+
+
+
+
             <button
               onClick={triggerBlackHole}
-              className="px-4 py-2 bg-neutral-900 text-neutral-500 border border-neutral-800 text-xs font-bold rounded-full hover:bg-black hover:text-white hover:border-white/20 transition-all shadow-inner"
+              className="px-4 py-2 bg-neutral-900 text-neutral-500 border border-neutral-800 text-xs font-bold rounded-full hover:bg-black hover:text-white hover:border-white/20 transition-all shadow-inner whitespace-nowrap"
             >
               {locale === 'nl' ? 'NIET DRUKKEN' : 'DO NOT PRESS'}
             </button>
@@ -734,10 +866,11 @@ function NotFoundContent({ locale }: { locale: string }) {
           )}
 
           {/* LUCA */}
+          {/* LUCA */}
           <div
             className="absolute bottom-10 transition-transform duration-75 ease-linear will-change-transform"
             style={{
-              transform: `translate(${lucaRef.current.x}px, ${lucaRef.current.y}px) rotate(${lucaRef.current.rotation}deg)`,
+              transform: `translate(${lucaRef.current.x}px, ${lucaRef.current.y}px) rotate(${lucaRef.current.rotation}deg) scale(${lucaRef.current.scaleX}, ${lucaRef.current.scaleY})`,
               opacity: lucaRef.current.opacity
             }}
           >
@@ -745,7 +878,7 @@ function NotFoundContent({ locale }: { locale: string }) {
               variant="luca"
               emotion={lucaRef.current.emotion}
               isWalking={lucaRef.current.isWalking}
-              direction={lucaRef.current.scaleX as 1 | -1}
+              direction={(lucaRef.current.scaleX > 0 ? 1 : -1) as 1 | -1}
               className="transition-transform"
               onClick={handleLucaClick}
             />
@@ -805,7 +938,7 @@ function NotFoundContent({ locale }: { locale: string }) {
       </div>
 
       {showGame && <PetGame onClose={() => setShowGame(false)} locale={locale} />}
-    </main>
+    </div >
   )
 }
 

@@ -345,17 +345,44 @@ html {
     animation-delay: 500ms;
   }
 
-  /* Focus visible ring - modern focu@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
+  /* Focus visible ring - modern focus */
+  *:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
 
-@keyframes sway {
-  0%, 100% { transform: rotate(-5deg); }
-  50% { transform: rotate(5deg); }
-}
+  @keyframes float {
 
-/* Base styles */
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-6px);
+    }
+  }
+
+  .float-children>* {
+    animation: float 6s ease-in-out infinite;
+  }
+
+
+
+
+  @keyframes sway {
+
+    0%,
+    100% {
+      transform: rotate(-5deg);
+    }
+
+    50% {
+      transform: rotate(5deg);
+    }
+  }
+
+  /* Base styles */
   *:focus-visible {
     outline: 2px solid var(--ring);
     outline-offset: 2px;

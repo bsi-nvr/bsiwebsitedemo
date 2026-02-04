@@ -2,8 +2,9 @@
 
 import React, { memo } from 'react'
 
-export type PetVariant = 'luca' | 'zuko' | 'lilly' | 'misty' | 'buddy' | 'buddy'
+export type PetVariant = 'luca' | 'zuko' | 'lilly' | 'misty' | 'buddy'
 export type PetEmotion = 'happy' | 'curious' | 'sleepy' | 'shocked' | 'neutral'
+export type PetCostume = 'none' | 'astronaut' | 'wizard' | 'sunglasses' | 'bowtie'
 
 interface PetProps {
     variant: PetVariant
@@ -47,9 +48,6 @@ export const Pet = memo(function Pet({
         }
     }, [])
 
-    // Base scales for "Soft-Pop" aesthetic
-    // Everything is rounded, bouncy, and distinct
-
     // CONFIGURATION
     const config = {
         luca: {
@@ -76,9 +74,9 @@ export const Pet = memo(function Pet({
             isSpaniel: true,
         },
         buddy: {
-            bodyColor: 'bg-orange-400', // Ginger
+            bodyColor: 'bg-[#5D4037]', // Dark brown base
             blobShape: 'rounded-[2.5rem]',
-            isGinger: true
+            isTabby: true // Switch to Tabby rendering
         }
     }[variant]
 
@@ -118,20 +116,21 @@ export const Pet = memo(function Pet({
                 {variant === 'misty' && (
                     <div className="absolute top-2 right-4 w-8 h-8 bg-amber-800/10 rounded-full blur-sm" />
                 )}
-                {/* Buddy's Stripes (Ginger Tabby) */}
-                {variant === 'buddy' && (
+                {/* Buddy's Tabby Stripes - Improved */}
+                {/* @ts-ignore */}
+                {config.isTabby && (
                     <>
-                        <div className="absolute top-2 left-1/2 -translate-x-1/2 w-4 h-8 bg-orange-300 rounded-full blur-[1px]" />
-                        <div className="absolute bottom-4 right-4 w-6 h-2 bg-orange-300 rounded-full blur-[1px]" />
-                        <div className="absolute bottom-4 left-4 w-6 h-2 bg-orange-300 rounded-full blur-[1px]" />
-                    </>
-                )}
-                {/* Buddy's Stripes (Ginger Tabby) */}
-                {variant === 'buddy' && (
-                    <>
-                        <div className="absolute top-2 left-1/2 -translate-x-1/2 w-4 h-8 bg-orange-300 rounded-full blur-[1px]" />
-                        <div className="absolute bottom-4 right-4 w-6 h-2 bg-orange-300 rounded-full blur-[1px]" />
-                        <div className="absolute bottom-4 left-4 w-6 h-2 bg-orange-300 rounded-full blur-[1px]" />
+                        {/* Back Stripes */}
+                        <div className="absolute top-2 left-1/4 w-2 h-12 bg-black/30 rounded-full rotate-12 blur-[1px]" />
+                        <div className="absolute top-2 left-1/2 w-2 h-12 bg-black/30 rounded-full -rotate-6 blur-[1px]" />
+                        <div className="absolute top-2 left-3/4 w-2 h-12 bg-black/30 rounded-full rotate-6 blur-[1px]" />
+
+                        {/* Head Stripes (Mackerel Tabby 'M') */}
+                        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-8 h-8 z-20">
+                            <div className="absolute top-0 left-1 w-1 h-3 bg-black/40 rounded-full -rotate-12" />
+                            <div className="absolute top-0 right-1 w-1 h-3 bg-black/40 rounded-full rotate-12" />
+                            <div className="absolute top-1 left-3 w-1 h-3 bg-black/40 rounded-full" />
+                        </div>
                     </>
                 )}
             </div>
@@ -205,6 +204,7 @@ export const Pet = memo(function Pet({
                     </div>
                 </div>
             </div>
+
 
             {/* --- TAIL --- */}
             <div className="absolute top-6 -right-2 z-0">
