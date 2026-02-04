@@ -27,6 +27,10 @@ export function Header() {
     setMounted(true)
     const handleScroll = () => {
       const currentScrollY = window.scrollY
+
+      // Ignore small scroll movements to prevent jitter
+      if (Math.abs(currentScrollY - lastScrollY.current) < 5) return
+
       const isScrollingDown = currentScrollY > lastScrollY.current
       const isScrollingUp = currentScrollY < lastScrollY.current
 
@@ -132,12 +136,12 @@ export function Header() {
               />
             </Link>
 
-            <DesktopNav navLinks={navLinks} pathname={pathname} scrolled={scrolled} />
+            <DesktopNav navLinks={navLinks} pathname={pathname} scrolled={isCompact} />
 
             <div className="flex items-center gap-2">
               <DesktopActions
                 locale={locale}
-                scrolled={scrolled}
+                scrolled={isCompact}
                 mounted={mounted}
                 isDark={isDark}
                 onToggleLocale={toggleLocale}
@@ -146,7 +150,7 @@ export function Header() {
 
               <MobileActions
                 locale={locale}
-                scrolled={scrolled}
+                scrolled={isCompact}
                 mounted={mounted}
                 isDark={isDark}
                 mobileOpen={mobileOpen}
