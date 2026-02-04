@@ -11,12 +11,21 @@ interface Particle {
     size: number
 }
 
-export function Particles() {
+import { cn } from "@/lib/utils"
+
+interface ParticlesProps {
+    className?: string
+}
+
+export function Particles({ className }: ParticlesProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const { resolvedTheme } = useTheme()
     const mouseRef = useRef({ x: 0, y: 0 })
 
     useEffect(() => {
+        // Don't run on mobile to save resources
+        if (window.innerWidth < 768) return
+
         const canvas = canvasRef.current
         if (!canvas) return
 
@@ -135,7 +144,7 @@ export function Particles() {
     return (
         <canvas
             ref={canvasRef}
-            className="absolute inset-0 z-0 pointer-events-none"
+            className={cn("absolute inset-0 z-0 pointer-events-none", className)}
             style={{ opacity: 0.8 }}
         />
     )

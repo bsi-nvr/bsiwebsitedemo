@@ -103,7 +103,7 @@ export function Header() {
       </a>
 
       <header className="fixed top-0 left-0 right-0 z-50 pointer-events-none">
-        <div className="flex justify-center">
+        <div className="flex justify-center px-4">
           <nav
             aria-label="Main navigation"
             className={cn(

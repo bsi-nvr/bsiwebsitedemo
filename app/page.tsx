@@ -71,7 +71,7 @@ export default function Home() {
         </motion.div>
 
         {/* Particle Effects */}
-        <Particles />
+        <Particles className="hidden md:block" />
 
         {/* Content */}
         <div className="relative z-10 container mx-auto px-6 lg:px-12 pt-32 pb-20">
