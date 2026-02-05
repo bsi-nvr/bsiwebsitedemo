@@ -83,11 +83,6 @@ export function Footer() {
                 </h3>
                 <ul className="space-y-4">
                   <li>
-                    <Link href="/blog" className="text-base text-gray-300 hover:text-white transition-colors hover:translate-x-1 inline-block duration-200">
-                      {locale === "en" ? "Blog" : "Blog"}
-                    </Link>
-                  </li>
-                  <li>
                     <Link href="/security" className="text-base text-gray-300 hover:text-white transition-colors hover:translate-x-1 inline-block duration-200">
                       {locale === "en" ? "Security" : "Beveiliging"}
                     </Link>

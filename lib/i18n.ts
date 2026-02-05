@@ -96,36 +96,36 @@ export const translations = {
         kvkNumber: "82383650",
       },
       team: [
-        { 
-          name: "Mark van Staden", 
+        {
+          name: "Mark van Staden",
           role: "Technical Director & Operations Manager",
           bio: "With over 15 years of IT experience, Mark leads our technical strategy and ensures every client receives world-class support.",
           email: "mark@brainsoftict.nl",
           phone: "+31 (0)85 7010329"
         },
-        { 
-          name: "Niek van Rijswijk", 
+        {
+          name: "Niek van Rijswijk",
           role: "Senior System Administrator",
           bio: "Niek specializes in cloud infrastructure and network security. His expertise keeps our clients' systems running smoothly.",
           email: "niek@brainsoftict.nl",
           phone: "+31 (0)85 7010329"
         },
-        { 
-          name: "Sander Tensen", 
+        {
+          name: "Sander Tensen",
           role: "Board Member",
           bio: "Sander brings strategic business perspective to our operations, ensuring sustainable growth and client satisfaction.",
           email: "sander@brainsoftict.nl",
           phone: "+31 (0)85 7010329"
         },
-        { 
-          name: "Sabine van Staden", 
+        {
+          name: "Sabine van Staden",
           role: "Board Member",
           bio: "Sabine drives our vision for customer-centric service delivery and operational excellence.",
           email: "sabine@brainsoftict.nl",
           phone: "+31 (0)85 7010329"
         },
-        { 
-          name: "Mike Jansen", 
+        {
+          name: "Mike Jansen",
           role: "Trainee",
           bio: "Mike brings fresh perspectives to our team as he develops his IT expertise under our guidance.",
           email: "mike@brainsoftict.nl",
@@ -241,36 +241,36 @@ export const translations = {
         kvkNumber: "82383650",
       },
       team: [
-        { 
-          name: "Mark van Staden", 
+        {
+          name: "Mark van Staden",
           role: "Technisch Directeur & Operationeel Manager",
           bio: "Met meer dan 15 jaar IT-ervaring leidt Mark onze technische strategie en zorgt voor wereldklasse ondersteuning.",
           email: "mark@brainsoftict.nl",
           phone: "+31 (0)85 7010329"
         },
-        { 
-          name: "Niek van Rijswijk", 
+        {
+          name: "Niek van Rijswijk",
           role: "Senior System Administrator",
           bio: "Niek specialiseert zich in cloud-infrastructuur en netwerkbeveiliging. Zijn expertise houdt de systemen van onze klanten soepel draaiende.",
           email: "niek@brainsoftict.nl",
           phone: "+31 (0)85 7010329"
         },
-        { 
-          name: "Sander Tensen", 
+        {
+          name: "Sander Tensen",
           role: "Bestuurslid",
           bio: "Sander brengt strategisch zakelijk perspectief in onze operaties, wat duurzame groei en klanttevredenheid waarborgt.",
           email: "sander@brainsoftict.nl",
           phone: "+31 (0)85 7010329"
         },
-        { 
-          name: "Sabine van Staden", 
+        {
+          name: "Sabine van Staden",
           role: "Bestuurslid",
           bio: "Sabine stuurt onze visie voor klantgerichte serviceverlening en operationele uitmuntendheid.",
           email: "sabine@brainsoftict.nl",
           phone: "+31 (0)85 7010329"
         },
-        { 
-          name: "Mike Jansen", 
+        {
+          name: "Mike Jansen",
           role: "Trainee",
           bio: "Mike brengt frisse ideeën naar ons team terwijl hij onder onze begeleiding zijn IT-expertise ontwikkelt.",
           email: "mike@brainsoftict.nl",

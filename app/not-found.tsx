@@ -743,7 +743,7 @@ function NotFoundContent({ locale }: { locale: string }) {
 
       <div className="flex-grow flex flex-col items-center justify-center relative z-10 px-4 pt-20">
         <h1
-          className={`text-9xl font-black ${matrixMode ? 'text-[#00FF41] animate-pulse' : 'text-black dark:text-white'} mb-4 select-none cursor-pointer transition-transform duration-700 ${blackHoleActive ? 'scale-0 rotate-[720deg]' : 'hover:scale-105 active:scale-95'}`}
+          className={`text-6xl md:text-9xl font-black ${matrixMode ? 'text-[#00FF41] animate-pulse' : 'text-black dark:text-white'} mb-4 select-none cursor-pointer transition-transform duration-700 ${blackHoleActive ? 'scale-0 rotate-[720deg]' : 'hover:scale-105 active:scale-95'}`}
           onClick={() => {
             if (blackHoleActive) return
             handlePage() // Eat animation
@@ -761,8 +761,8 @@ function NotFoundContent({ locale }: { locale: string }) {
           <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 text-center max-w-2xl">{t.subtitle}</h2>
           <p className="text-lg text-muted-foreground max-w-xl text-center mb-6">{t.description}</p>
 
-          <div className="flex gap-4">
-            <Link href="/" className="px-8 py-3 bg-foreground text-background rounded-full font-bold hover:scale-105 transition-transform">
+          <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
+            <Link href="/" className="px-8 py-3 bg-foreground text-background rounded-full font-bold hover:scale-105 transition-transform text-center">
               {t.homeButton}
             </Link>
             <button onClick={() => setShowGame(true)} className="px-8 py-3 border-2 border-foreground text-foreground rounded-full font-bold hover:bg-foreground hover:text-background transition-colors">
@@ -773,7 +773,7 @@ function NotFoundContent({ locale }: { locale: string }) {
 
         {/* CONTAINER FOR PETS & GAME UI - V18.14: Increased height to h-96 for bubble space */}
         <div className="relative w-full max-w-4xl h-96 mt-8 flex items-end justify-center">
-          <div className={`absolute top-0 left-1/2 -translate-x-1/2 flex gap-4 bg-background/50 p-2 rounded-full backdrop-blur-md z-50 border border-foreground/10 shadow-lg transition-all duration-1000 items-center ${blackHoleActive ? 'opacity-0 scale-0' : 'opacity-100 scale-100'}`}>
+          <div className={`absolute top-0 left-1/2 -translate-x-1/2 flex flex-wrap justify-center gap-2 md:gap-4 bg-background/50 p-2 rounded-[2rem] backdrop-blur-md z-50 border border-foreground/10 shadow-lg transition-all duration-1000 items-center w-[90vw] md:w-auto ${blackHoleActive ? 'opacity-0 scale-0' : 'opacity-100 scale-100'}`}>
 
 
 
