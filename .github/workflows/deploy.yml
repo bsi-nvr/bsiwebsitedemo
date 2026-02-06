@@ -1,4 +1,4 @@
-name: Deploy Next.js to CloudPanel
+name: Deploy Next.js Static to CloudPanel
 
 on:
   push:
@@ -21,8 +21,15 @@ jobs:
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             cd ~/htdocs/test.brainsoftict.nl
+            
+            # Update code en negeer lokale server wijzigingen
             git fetch origin main
             git reset --hard origin/main
+            
+            # Bouw de statische bestanden (de 'out' map)
             npm install
             npm run build
-            pm2 restart nextjs-app
+            
+            # Herstart de app of start hem als hij nog niet bestaat
+            # We gebruiken 'npm start' omdat jij daar nu 'serve' in hebt gezet
+            pm2 restart nextjs-app || pm2 start npm --name "nextjs-app" -- start
