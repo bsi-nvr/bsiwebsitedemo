@@ -1,10 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
   typescript: {
     ignoreBuildErrors: true,
   },
   images: {
-    // Unoptimized disabled to allow Next.js to optimize images
+    unoptimized: true,
   },
 }
 export default nextConfig
